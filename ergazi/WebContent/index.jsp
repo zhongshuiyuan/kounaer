@@ -2,5 +2,5 @@
 
 <link rel="stylesheet" href="/style/kounaer.css" type="text/css" />
 
-<a class="awesome">Awesome Button</a>
-<a class="small awesome">Small Awesome Button</a>
+<a class="awesome">老葛按钮</a>
+<a class="small awesome">二嘎子突击队</a>
