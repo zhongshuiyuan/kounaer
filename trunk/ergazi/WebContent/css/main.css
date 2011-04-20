@@ -1,0 +1,39 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+#dialog label, #dialog input { display:block; }
+#accordion {width: 200px;}
+.demoHeaders { margin-top: 2em; }
+.demoHeaders { margin-top: 2em; }
+
+body{ font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;}
+			
+#accordion ul{ /*CSS for UL of each sub menu*/
+list-style-type: none;
+margin: 0;
+padding: 0;
+margin-bottom: 8px; /*bottom spacing between each UL and rest of content*/
+}
+
+#accordion ul li{
+padding-bottom: 2px; /*bottom spacing between menu items*/
+}
+
+#accordion ul li a{
+color: #A70303;
+background: url(arrowbullet.png) no-repeat center left; /*custom bullet list image*/
+display: block;
+padding: 2px 0;
+padding-left: 19px; /*link text is indented 19px*/
+text-decoration: none;
+font-weight: bold;
+border-bottom: 1px solid #dadada;
+font-size: 90%;
+}
+
+#button { padding: .5em 1em; text-decoration: none; }
+#effect { width: 100%; height: 100%; padding: 0.4em; position: relative; background: #fff; }
+#effect h3 { margin: 0; padding: 0.4em; text-align: left; }
+ 
