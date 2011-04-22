@@ -2,6 +2,8 @@
 <head>
 <link rel="stylesheet" href="/js/jwysiwyg/jquery.wysiwyg.css"
 	type="text/css" />
+<link rel="stylesheet" href="/css/huabo.css"
+	type="text/css" />	
 <link rel="stylesheet" type="text/css" href="/js/jwysiwyg/lib/blueprint/screen.css" media="screen, projection" />	
 <script type="text/javascript" src="/js/jquery-1.5.2.js"></script>
 <script type="text/javascript" src="/js/jwysiwyg/jquery.wysiwyg.js"></script>
@@ -19,12 +21,12 @@
 	})(jQuery);
 </script>
 </head>
-<table cellspacing="0" cellpadding="5" border="0">
+<table cellspacing="0" cellpadding="5" border="1">
 	<tr>
 		<td class="admin_input_name">涉及税种：</td>
 		<td class="admin_input_value">
 		  <div class="errorbox-good" id="ucpr_nameErrorBox">
-		    <input type="text" size="30" value="www.163.com" name="ucpr_name">
+		    <input type="text" size="30" value="" name="ucpr_name">
             <div id="ucpr_nameErrorMessage" class="errormsg-group"></div>
           </div>
         </td>
