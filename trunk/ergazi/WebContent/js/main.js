@@ -72,7 +72,8 @@ function tabMenu(t){
 //新开tab
 function openTab(tabName,url){
 	$('#tabs').tabs("add","#newtab"+tabid,tabName);
-	$("div #newtab" + tabid ).load("query.html");
+	//$("div #newtab" + tabid ).load("query.html");
+	$("div #newtab" + tabid ).load(url);
 	tabid++;
 	//$('#tabs').tabs('select', '#' + ui.panel.id);
 }
