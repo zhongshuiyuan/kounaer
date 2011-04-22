@@ -59,8 +59,15 @@
 	for(var i=0;i<=mydata.length;i++)
 		jQuery("#list9").jqGrid('addRowData',i+1,mydata[i]);
 	
-	
+	tabMenu('base');	//菜单初始化
 });
+
+
+//菜单功能
+function tabMenu(t){
+    $("div[class^='tab_menu_']").hide();
+    $('.tab_menu_'+t).show();
+}
 
 //新开tab
 function openTab(tabName,url){
