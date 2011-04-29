@@ -1,31 +1,31 @@
 <form>
 <div class="toggler">
 	<div id="effect" class="ui-widget-content ui-corner-all">
-		<h3 class="ui-widget-header ui-corner-all">	²éÑ¯</h3>
+		<h3 class="ui-widget-header ui-corner-all">	æŸ¥è¯¢</h3>
 		<p>
 		<table  cellspacing="1" cellpadding="1" class="class_form" width="100%">
 		<tr  class="ui-widget-content" >
-            <td align="center">ÓÅ»İ·½Ê½</td>
+            <td align="center">ä¼˜æƒ æ–¹å¼</td>
 			<td>
 				<select name="ord" style="width: 180px">
-					<option value="">--ÇëÑ¡Ôñ--</option>
+					<option value="">--è¯·é€‰æ‹©--</option>
                     <option value="">--AAA--</option>
                     <option value="">--BBB--</option>
 				</select>
 			</td>
-			<td align="center">ĞĞÒµ</td>
+			<td align="center">è¡Œä¸š</td>
 			<td><input type="text" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/></td>
 		</tr>
         <tr  class="ui-widget-content" >
-            <td align="center">ÆğÊ¼Äê·İ</td>
+            <td align="center">èµ·å§‹å¹´ä»½</td>
 			<td>
 				<input type="text" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/>
 			</td>
-			<td align="center">½ØÖ¹Äê·İ</td>
+			<td align="center">æˆªæ­¢å¹´ä»½</td>
 			<td><input type="text" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/></td>
 		</tr>
 		<tr>
-				 <td colspan="4" align="center"><div class="demo"><button >²éÑ¯</button>&nbsp;<input type="reset" value="ÖØÖÃ" /></div>   </td>
+				 <td colspan="4" align="center"><div class="demo"><button >æŸ¥è¯¢</button>&nbsp;<input type="reset" value="é‡ç½®" /></div>   </td>
 		</tr>
         </table>
         </p>
@@ -40,19 +40,19 @@
 </div>
 <div class="toggler">
 	<div id="effect" class="ui-widget-content ui-corner-all">
-		<h3 class="ui-widget-header ui-corner-all">	ÁĞ±í</h3>
+		<h3 class="ui-widget-header ui-corner-all">	åˆ—è¡¨</h3>
 		<p>
 		 <div id="container8" style="float:left; margin: 0 auto"></div>
 		</p>
 	</div>
 </div>
 <script type="text/javascript">
-//±í¸ñ
+//è¡¨æ ¼
 	jQuery("#list9").jqGrid({
 		datatype: "local",
 		height: 120,
         autowidth:true,
-	   	colNames:['·ÖÀà±àºÅ','Ë°ÖÖ', 'Ö§³ö¹æÄ£(ÒÚÔª)'],
+	   	colNames:['åˆ†ç±»ç¼–å·','ç¨ç§', 'æ”¯å‡ºè§„æ¨¡(äº¿å…ƒ)'],
 	   	colModel:[
 	   		{name:'id',index:'id', align:"center", sorttype:"int"},
 	   		{name:'invdate',index:'invdate',align:"center", width:60},
@@ -60,14 +60,14 @@
 	   		
 	   	],
 	   	multiselect: true,
-	   	caption: "Ö§³öÁĞ±í"
+	   	caption: "æ”¯å‡ºåˆ—è¡¨"
 	});
 	var mydata = [
-			{id:"100001",invdate:"ÔöÖµË°",name:"12312"},
-			{id:"110881",invdate:"ÓªÒµË°",name:"33322"},
-			{id:"000881",invdate:"ÆóÒµËùµÃË°",name:"632211"},
-			{id:"201001",invdate:"·¿²úË°",name:"223121"},
-			{id:"700088",invdate:"Ó¡»¨Ë°",name:"6767443"}
+			{id:"100001",invdate:"å¢å€¼ç¨",name:"12312"},
+			{id:"110881",invdate:"è¥ä¸šç¨",name:"33322"},
+			{id:"000881",invdate:"ä¼ä¸šæ‰€å¾—ç¨",name:"632211"},
+			{id:"201001",invdate:"æˆ¿äº§ç¨",name:"223121"},
+			{id:"700088",invdate:"å°èŠ±ç¨",name:"6767443"}
 			
 			];
 	for(var i=0;i<=mydata.length;i++)
@@ -84,7 +84,7 @@ var chart;
 						plotShadow: false
 					},
 					title: {
-						text: '°´Ë°ÖÖÍ³¼Æ, 2011'
+						text: 'æŒ‰ç¨ç§ç»Ÿè®¡, 2011'
 					},
 					tooltip: {
 						formatter: function() {
@@ -105,17 +105,17 @@ var chart;
 						type: 'pie',
 						name: 'Browser share',
 						data: [
-							['ÔöÖµË°',   45.0],
-							['ÓªÒµË°',       26.8],
+							['å¢å€¼ç¨',   45.0],
+							['è¥ä¸šç¨',       26.8],
 							{
-								name: 'ÆóÒµËùµÃË°',    
+								name: 'ä¼ä¸šæ‰€å¾—ç¨',    
 								y: 12.8,
 								sliced: true,
 								selected: true
 							},
-							['·¿²úË°',    8.5],
-							['Ó¡»¨Ë°',     6.2],
-							['³µÁ¾¹ºÖÃË°',   0.7]
+							['æˆ¿äº§ç¨',    8.5],
+							['å°èŠ±ç¨',     6.2],
+							['è½¦è¾†è´­ç½®ç¨',   0.7]
 						]
 					}]
 				});
