@@ -27,12 +27,13 @@
 <!-- 布局_中 -->
 <DIV class="ui-layout-center">
 <!-- Tabs -->
-		<div id="tabs">
-			<ul>
+		<div id="tabs1">
+			<!--ul>
 				<li style="width: 140px">
 					<a href="#tabs-1">　按税种统计　</a><span class="ui-icon ui-icon-close">Remove Tab</span>
 				</li>
-			</ul>
+			</ul-->
+            
 			<!--和上面对应-->
 			<div id="tabs-1">
                 <form id="custQueryForm" action="/cust.bo">
@@ -119,7 +120,7 @@
 				<h3><a href="javascript:void(0)">支出规模分类统计</a></h3>
 				<div>
                     <ul>
-                        <li> <a href="" onclick="">按税种统计</a></li>
+                        <li> <a href="" onclick="$('#tabs1').load('query.html');">按税种统计</a></li>
                         <li> <a href="" onclick="">按税种统计</a></li>
                         <li> <a href="" onclick="">按税种统计</a></li>
                         <li> <a href="" onclick="">按税种统计</a></li>
