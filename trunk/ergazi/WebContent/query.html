@@ -1,21 +1,31 @@
-ï»¿<form>
+<form>
 <div class="toggler">
 	<div id="effect" class="ui-widget-content ui-corner-all">
-		<h3 class="ui-widget-header ui-corner-all">	æŸ¥è¯¢</h3>
+		<h3 class="ui-widget-header ui-corner-all">	²éÑ¯</h3>
 		<p>
 		<table  cellspacing="1" cellpadding="1" class="class_form" width="100%">
 		<tr  class="ui-widget-content" >
-            <td align="center">éƒ¨é—¨</td>
+            <td align="center">ÓÅ»İ·½Ê½</td>
 			<td>
 				<select name="ord" style="width: 180px">
-					<option value="">--è¯·é€‰æ‹©--</option>
+					<option value="">--ÇëÑ¡Ôñ--</option>
+                    <option value="">--AAA--</option>
+                    <option value="">--BBB--</option>
 				</select>
 			</td>
-			<td align="center">æ˜¾ç¤ºæ ¼å¼</td>
+			<td align="center">ĞĞÒµ</td>
+			<td><input type="text" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/></td>
+		</tr>
+        <tr  class="ui-widget-content" >
+            <td align="center">ÆğÊ¼Äê·İ</td>
+			<td>
+				<input type="text" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/>
+			</td>
+			<td align="center">½ØÖ¹Äê·İ</td>
 			<td><input type="text" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/></td>
 		</tr>
 		<tr>
-				 <td colspan="4" align="center"><div class="demo"><button >æŸ¥è¯¢</button>&nbsp;<input type="reset" value="é‡ç½®" /></div>   </td>
+				 <td colspan="4" align="center"><div class="demo"><button >²éÑ¯</button>&nbsp;<input type="reset" value="ÖØÖÃ" /></div>   </td>
 		</tr>
         </table>
         </p>
@@ -23,13 +33,93 @@
 </div>
 </form>
 <br>
+<div class="toggler" style="width:100%">
+                    <div id="effect" class="ui-widget-content ui-corner-all" style="width:100%">
+                       <div id="custQueryList" style="width:100%"><table id="list9" width="100%"></table></div>
+                    </div>
+</div>
 <div class="toggler">
 	<div id="effect" class="ui-widget-content ui-corner-all">
-		<h3 class="ui-widget-header ui-corner-all">	åˆ—è¡¨</h3>
+		<h3 class="ui-widget-header ui-corner-all">	ÁĞ±í</h3>
 		<p>
-		<div>123</div>
+		 <div id="container8" style="float:left; margin: 0 auto"></div>
 		</p>
 	</div>
 </div>
+<script type="text/javascript">
+//±í¸ñ
+	jQuery("#list9").jqGrid({
+		datatype: "local",
+		height: 120,
+        autowidth:true,
+	   	colNames:['·ÖÀà±àºÅ','Ë°ÖÖ', 'Ö§³ö¹æÄ£(ÒÚÔª)'],
+	   	colModel:[
+	   		{name:'id',index:'id', align:"center", sorttype:"int"},
+	   		{name:'invdate',index:'invdate',align:"center", width:60},
+	   		{name:'name',index:'name',align:"center"}
+	   		
+	   	],
+	   	multiselect: true,
+	   	caption: "Ö§³öÁĞ±í"
+	});
+	var mydata = [
+			{id:"100001",invdate:"ÔöÖµË°",name:"12312"},
+			{id:"110881",invdate:"ÓªÒµË°",name:"33322"},
+			{id:"000881",invdate:"ÆóÒµËùµÃË°",name:"632211"},
+			{id:"201001",invdate:"·¿²úË°",name:"223121"},
+			{id:"700088",invdate:"Ó¡»¨Ë°",name:"6767443"}
+			
+			];
+	for(var i=0;i<=mydata.length;i++)
+		jQuery("#list9").jqGrid('addRowData',i+1,mydata[i]);
 
 
+var chart;
+			$(document).ready(function() {
+				chart = new Highcharts.Chart({
+					chart: {
+						renderTo: 'container8',
+						plotBackgroundColor: null,
+						plotBorderWidth: null,
+						plotShadow: false
+					},
+					title: {
+						text: '°´Ë°ÖÖÍ³¼Æ, 2011'
+					},
+					tooltip: {
+						formatter: function() {
+							return '<b>'+ this.point.name +'</b>: '+ this.y +' %';
+						}
+					},
+					plotOptions: {
+						pie: {
+							allowPointSelect: true,
+							cursor: 'pointer',
+							dataLabels: {
+								enabled: false
+							},
+							showInLegend: true
+						}
+					},
+				    series: [{
+						type: 'pie',
+						name: 'Browser share',
+						data: [
+							['ÔöÖµË°',   45.0],
+							['ÓªÒµË°',       26.8],
+							{
+								name: 'ÆóÒµËùµÃË°',    
+								y: 12.8,
+								sliced: true,
+								selected: true
+							},
+							['·¿²úË°',    8.5],
+							['Ó¡»¨Ë°',     6.2],
+							['³µÁ¾¹ºÖÃË°',   0.7]
+						]
+					}]
+				});
+			});
+
+
+</script>

@@ -60,6 +60,9 @@
 		jQuery("#list9").jqGrid('addRowData',i+1,mydata[i]);
 	
 	tabMenu('base');	//菜单初始化
+	$.ajaxSetup ({
+        cache: false //close AJAX cache
+    });
 });
 
 
