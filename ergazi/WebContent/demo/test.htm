@@ -1,0 +1,397 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+</head>
+
+<table width="1%" cellspacing="0" cellpadding="2" border="0"
+	bgcolor="white">
+	<tbody>
+		<tr>
+			<td>
+			<table width="1%" cellspacing="0" cellpadding="2" border="0"
+				bgcolor="red">
+				<tbody>
+					<tr>
+						<td>
+						<table width="100%" cellspacing="0" cellpadding="2" border="0"
+							bgcolor="red">
+							<tbody>
+								<tr>
+									<td valign="top" bgcolor="#ffffff" align="center">
+									<div align="left" id="cookieWarning1">&nbsp;</div>
+									<table width="100%" cellspacing="0" cellpadding="5" border="0"
+										bgcolor="#ffffff">
+										<tbody>
+											<tr>
+												<td valign="top" colspan="2"><span class="gaia ops gsl">
+												开始使用 <br>
+												</span></td>
+											</tr>
+											<tr style="display: table-row;" id="AttrRowLastName">
+												<td valign="top" nowrap="nowrap" id="AttrLabelCellLastName">
+												<span class="gaia cca al"> 姓氏: </span></td>
+												<td id="AttrLabelCellLastName">
+												<div><input type="text" value="" size="30"
+													id="LastName" name="LastName" n="1"></div>
+												</td>
+											</tr>
+											<tr style="display: table-row;" id="AttrRowFirstName">
+												<td valign="top" nowrap="nowrap" id="AttrLabelCellFirstName">
+												<span class="gaia cca al"> 名字: </span></td>
+												<td id="AttrLabelCellFirstName">
+												<div><input type="text" value="" size="30"
+													id="FirstName" name="FirstName" n="2"></div>
+												</td>
+											</tr>
+											<tr>
+												<td valign="top" nowrap="nowrap"><font size="-1"
+													face="Arial, sans-serif"><b> 想用的登录名: </b></font> <b>&nbsp;</b>
+												</td>
+												<td nowrap="nowrap">
+												<table border="0" dir="ltr">
+													<tbody>
+														<tr>
+															<td dir="ltr"><select style="display: none;"
+																onchange="updateEmailBox(this.value, false)"
+																id="UsernameSelector" name="UsernameSelector">
+																<option style="font-style: italic;" value="header">
+																选择用户名</option>
+																<option style="font-style: italic;" value="enterNew">
+																输入新的用户名</option>
+															</select> <bdo dir="ltr">
+															<div>
+															<div style="display: block;" id="googleIdTextfield">
+															<input type="text" value="" size="30" id="Email"
+																name="Email" n="3"></div>
+															</div>
+															</bdo>
+															<div align="left" style="display: block;"
+																id="googleIdExampleTextDiv"><font size="-1"
+																face="Arial, sans-serif" color="#6f6f6f">
+															例如：WHuang，Wei.Huang </font></div>
+															<div style="display: block;" id="googleIdCheckAvailDiv">
+															<div id="errorDIV"><font size="-1"
+																face="Arial, sans-serif"> <br>
+															<table cellspacing="0" cellpadding="0">
+																<tbody>
+																	<tr>
+																		<td></td>
+																	</tr>
+																</tbody>
+															</table>
+															</font></div>
+															<div style="display: block;" id="checkavailbuttondiv">
+															<div><input type="button" value="检查是否可用！"
+																style="font-size: 9pt;" onclick="getAvailableNames()"
+																key="checkavail"></div>
+															</div>
+															<div id="suggestionsDIV"><br>
+															<font size="-1" face="Arial, sans-serif"> </font></div>
+															<script
+																src="https://mail.google.com/mail?view=page&amp;name=browser"></script>
+															<script src="/accounts/GaiaCaribou.js"></script></div>
+															</td>
+															<td valign="top" nowrap="nowrap"><bdo dir="ltr">
+															<font size="-1" face="Arial, sans-serif"> <i>@mail.com</i>
+															</font> </bdo> <input type="hidden" value="mail.com" name="edk"
+																id="edk"></td>
+														</tr>
+													</tbody>
+												</table>
+												</td>
+											</tr>
+											<tr>
+												<td width="1%" valign="top" nowrap="nowrap"><font
+													size="-1" face="Arial, sans-serif"><b> 设定密码:
+												&nbsp;&nbsp;</b></font></td>
+												<td valign="top">
+												<table cellspacing="0" cellpadding="0" border="0"
+													bgcolor="#ffffff">
+													<tbody>
+														<tr>
+															<td valign="top">
+															<div><input type="password"
+																id="Passwd" name="Passwd" n="4"></div>
+															<font size="-1" face="arial,sans-serif" color="#6f6f6f">
+															最少需要 8 个字符。 </font></td>
+															<td width="10px"></td>
+															<td width="180" valign="top" nowrap="nowrap"
+																style="display: block;" id="passwdBarDiv">
+															<table cellspacing="0" cellpadding="0" border="0">
+																<tbody>
+																	<tr>
+																		<td width="0" valign="top" nowrap="nowrap"><font
+																			size="-1" face="Arial, sans-serif"> <a
+																			tabindex="-1"
+																			href="">
+																		密码强度：</a> </font></td>
+																		<td valign="top" nowrap="nowrap"><font size="-1"
+																			face="Arial, sans-serif" color="#808080"><b>
+																		</b></font></td>
+																	</tr>
+																	<tr>
+																		<td height="3"></td>
+																	</tr>
+																	<tr>
+																		<td colspan="2">
+																		<table width="180" cellspacing="0" cellpadding="0"
+																			border="0" bgcolor="#ffffff" id="passwdBar">
+																			<tbody>
+																				<tr>
+																					<td width="0%" height="4" bgcolor="#e0e0e0"
+																						id="posBar"></td>
+																					<td width="100%" height="4" bgcolor="#e0e0e0"
+																						id="negBar"></td>
+																				</tr>
+																			</tbody>
+																		</table>
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												</td>
+											</tr>
+											<tr>
+												<td valign="top" nowrap="nowrap"><font size="-1"
+													face="Arial, sans-serif"><b> 请再次输入密码: </b> </font></td>
+												<td>
+												<div><input type="password" size="30" id="PasswdAgain"
+													name="PasswdAgain" n="5"></div>
+												</td>
+											</tr>
+											<tr>
+												<td nowrap="nowrap">&nbsp;</td>
+												<td align="left"><font size="-1"> <input
+													type="checkbox" checked="checked" value="yes"
+													id="PersistentCookie" name="PersistentCookie">
+												&nbsp;<input type="hidden" value="1" name="rmShown">保持登录状态
+												</font></td>
+											</tr>
+											<tr>
+												<td nowrap="nowrap">&nbsp;</td>
+												<td align="left"><input type="checkbox" checked=""
+													id="smhck" name="smhck" value="1"> <input
+													type="hidden" name="nshk" id="nshk" value="1"> <font
+													size="-1" face="Arial, sans-serif"> 启用网络历史记录 <a
+													target="_blank"
+													href="http://www.google.com/support/accounts/bin/answer.py?answer=54068&amp;hl=zh_CN">了解详情</a>
+												</font></td>
+											</tr>
+											<tr>
+												<td colspan="2">&nbsp;</td>
+											</tr>
+											<tr style="display: table-row;" id="AttrRowSecretQuestion">
+												<td valign="top" nowrap="nowrap"
+													id="AttrLabelCellSecretQuestion"><span
+													class="gaia cca al"> 安全提示问题: </span></td>
+												<td id="AttrLabelCellSecretQuestion">
+												<div><select
+													onchange="updateOwnQuestionBox(this.value)"
+													name="selection" id="questions">
+													<option style="font-style: italic;" value="choosequestion">
+													选择问题...</option>
+													<option value="从孩提时代起，您最好的朋友的姓名是什么？">从孩提时代起，您最好的朋友的姓名是什么？</option>
+													<option value="您的启蒙老师叫什么？">您的启蒙老师叫什么？</option>
+													<option value="您从事第一份工作时的经理叫什么？">您从事第一份工作时的经理叫什么？</option>
+													<option value="您的第一个手机号码是多少？">您的第一个手机号码是多少？</option>
+													<option value="您的车牌号是多少？">您的车牌号是多少？</option>
+													<option value="ownquestion" style="font-style: italic;">我自己编写问题</option>
+												</select>
+												<div style="padding-top: 5px;"><input type="text"
+													style="display: none;" value="" size="53" id="ownquestion"
+													name="ownquestion"></div>
+												</div>
+												<span class="gaia cca cmt">
+												如果您忘记了密码，我们将要求您回答您设定的安全问题。 <a
+													href="javascript:openWindow(&quot;SecurityQuestionHelp&quot;,600, 500)">
+												了解详情 </a> </span></td>
+											</tr>
+											<tr style="display: table-row;" id="AttrRowIdentityAnswer">
+												<td valign="top" nowrap="nowrap"
+													id="AttrLabelCellIdentityAnswer"><span
+													class="gaia cca al"> 答案: </span></td>
+												<td id="AttrLabelCellIdentityAnswer">
+												<div><input type="text" autocomplete="off" value=""
+													size="53" id="IdentityAnswer" name="IdentityAnswer" n="6">
+												</div>
+												</td>
+											</tr>
+											<tr style="display: table-row;" id="AttrRowSecondaryEmail">
+												<td valign="top" nowrap="nowrap"
+													id="AttrLabelCellSecondaryEmail"><span
+													class="gaia cca al"> 辅助邮箱: </span></td>
+												<td id="AttrLabelCellSecondaryEmail">
+												<div><input type="text" value="" size="30"
+													id="SecondaryEmail" name="SecondaryEmail" n="7"></div>
+												<span class="gaia cca cmt">
+												万一您遇到了问题或忘记了密码，此地址可用来验证您的帐户。如果您没有另外的电子邮件地址，可将此字段保留为空。 <a
+													href="javascript:openWindow(&quot;SecondaryEmailHelp&quot;,700, 450)">
+												了解详情 </a> </span></td>
+											</tr>
+											<tr>
+												<td valign="top" nowrap="nowrap"><font size="-1"
+													face="Arial, sans-serif"> <b>位置：</b> </font></td>
+												<td>
+												<noscript>&lt;input type="hidden" name="hl"
+												value="zh-CN" /&gt;</noscript>
+												<select onchange="javascript:onLocChange()" name="loc"
+													id="loc">
+
+													<option selected="" value="CN">中国</option>
+													<option value="HK">中国香港 (Hong Kong)</option>
+												</select></td>
+											</tr>
+											<tr style="display: none;" id="AttrRowBirthday">
+												<td valign="top" nowrap="nowrap" id="AttrLabelCellBirthday">
+												<span class="gaia cca al"> 生日: </span></td>
+												<td id="AttrLabelCellBirthday">
+												<div><input type="text" value="" size="30"
+													id="Birthday" name="Birthday"></div>
+												<span class="gaia cca cmt"> YYYY/MM/DD（例如“2011-5-2”）
+												</span></td>
+											</tr>
+											<tr>
+												<td valign="top"><span class="gaia cud cl">
+												字符验证： </span></td>
+												<td>
+												<table>
+													<input type="hidden"
+														value="8W8WDPYkfi_r69H3gJB0g08iNOUIArvbGXtpDrTn_kJH0If1z1XCikO7oqlNwTtId9g4kFAvFJC1gtNiBWIk1A:TBoIKRuyIEDeNsYUdzjJmA"
+														id="newaccounttoken" name="newaccounttoken">
+													<input type="hidden"
+														value="https://www.google.com/accounts/Captcha?ctoken=8W8WDPYkfi_r69H3gJB0g08iNOUIArvbGXtpDrTn_kJH0If1z1XCikO7oqlNwTtId9g4kFAvFJC1gtNiBWIk1A%3ATBoIKRuyIEDeNsYUdzjJmA"
+														id="newaccounturl" name="newaccounturl">
+													<tbody>
+														<tr>
+															<td valign="top"></td>
+															<td valign="top"><span class="gaia captchahtml desc">
+															键入您在以下图片中看到的字符。 </span>
+															<div><img width="200" height="70"
+																alt="Visual verification"
+																src="https://www.google.com/accounts/Captcha?ctoken=8W8WDPYkfi_r69H3gJB0g08iNOUIArvbGXtpDrTn_kJH0If1z1XCikO7oqlNwTtId9g4kFAvFJC1gtNiBWIk1A%3ATBoIKRuyIEDeNsYUdzjJmA">
+															</div>
+															<input type="hidden"
+																value="GtOjcNZFYuL_kgNDPl7eRC-8kEqUTMs0U20ErSAeFST-TTn0m3osFN3KEtK3u7BoZdW-hBXf5JDkzcbiTrm5bg:3rkZ4C4XzbTKpho95pydkg"
+																id="newaccounttoken_audio" name="newaccounttoken_audio">
+															<input type="hidden"
+																value="https://www.google.com/accounts/Captcha?ctoken=GtOjcNZFYuL_kgNDPl7eRC-8kEqUTMs0U20ErSAeFST-TTn0m3osFN3KEtK3u7BoZdW-hBXf5JDkzcbiTrm5bg%3A3rkZ4C4XzbTKpho95pydkg"
+																id="newaccounturl_audio" name="newaccounturl_audio">
+															<div id="snd1"></div>
+															<div id="noEm"></div>
+															<div id="playAudio"></div>
+															</td>
+														</tr>
+														<tr>
+															<td></td>
+															<td>
+															<div><input type="text"
+																title="Type the characters you see or numbers you hear"
+																value="" name="newaccountcaptcha" id="newaccountcaptcha"
+																size="22" n="8"> <a
+																href="javascript:playCaptcha()"><img border="0"
+																alt="Listen and type the numbers you hear"
+																style="width: 1em; height: 1.2em;"
+																src="https://www.google.com/accounts/accessibility.gif"></a>
+
+															<a target="_top"
+																href="http://www.google.com/support/accounts/bin/answer.py?answer=33974">
+															<img width="1" height="1" border="0"
+																alt="有关屏幕读取器的更多信息，点击此处。"> </a></div>
+															<span class="gaia captchahtml cmt"> 字母不区分大小写 </span></td>
+														</tr>
+
+													</tbody>
+												</table>
+												</td>
+											</tr>
+											<!-- Tos.naui=default -->
+											<tr>
+												<td valign="top" nowrap="nowrap"><font size="-1"
+													face="Arial, sans-serif"> <b>服务条款：</b> </font></td>
+												<td valign="top"><font size="-1"
+													face="Arial, sans-serif"> 请检查以上您输入的 Google
+												帐户信息（内容可随意更改），并阅读以下服务条款。 </font></td>
+											</tr>
+											<tr>
+												<td>&nbsp;</td>
+												<td valign="top">
+												<div>
+												<div id="tos_div" style="display: inline;">
+												<table cellspacing="0" cellpadding="0" border="0">
+													<tbody>
+														<tr>
+															<td valign="top" align="right"><font size="-1">
+															<a target="_blank" href="TOS?loc=CN&amp;hl=zh">可打印版本</a>
+															</font></td>
+														</tr>
+														<tr>
+															<td><textarea onfocus="this.rows=10"
+																readonly="readonly" style="width: 100%;" cols="80"
+																rows="5">﻿
+
+</textarea></td>
+														</tr>
+														<tr>
+															<td>&nbsp;</td>
+														</tr>
+														<tr>
+															<td><font size="-1"> 点击下面的“我接受”，即表示您同意接受上面的<a
+																target="_blank" href="TOS?loc=CN&amp;hl=zh">服务条款</a>以及<a
+																target="_blank"
+																href="http://mail.google.com/mail/help/intl/zh-CN/program_policies.html">计划政策</a>和<a
+																target="_blank"
+																href="http://www.google.com/intl/zh-CN/privacy/">隐私政策</a>。
+															</font></td>
+														</tr>
+													</tbody>
+												</table>
+												<input type="hidden"
+													value="http://mail.google.com/mail/help/intl/zh-CN/program_policies.html"
+													name="program_policy_url" id="program_policy_url">
+												<input type="hidden"
+													value="http://www.google.com/intl/zh-CN/privacy/"
+													name="privacy_policy_url" id="privacy_policy_url">
+												<input type="hidden" value="zh"
+													name="requested_tos_language" id="requested_tos_language">
+												<input type="hidden" value="CN" name="served_tos_location"
+													id="served_tos_location"> <input type="hidden"
+													value="zh" name="served_tos_language"
+													id="served_tos_language"></div>
+												</div>
+												</td>
+											</tr>
+											<script type="text/javascript" src="/accounts/XmlHttp.js"></script>
+											<script src="/accounts/TimeZones.js" type="text/javascript"></script>
+											<tr>
+												<td colspan="1">&nbsp;</td>
+												<td align="center" colspan="1"><input type="submit"
+													value="我接受；创建我的帐户。" name="submitbutton" id="submitbutton"
+													style="width: 21em;"></td>
+											</tr>
+											<tr>
+												<td></td>
+												<td>
+												<div id="cookieWarning2">&nbsp;</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
