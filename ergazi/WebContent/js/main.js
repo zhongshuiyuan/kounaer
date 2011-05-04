@@ -30,16 +30,17 @@
 	//表格
 	jQuery("#list9").jqGrid({
 		datatype: "local",
-		height: 250,
+        autowidth: true, shrinkToFit:true,
+        altRows: true, height: 'auto',
 	   	colNames:['编号','行业', '部门', '区域','法律级次','是否个案','优惠方式'],
 	   	colModel:[
 	   		{name:'id',index:'id', align:"center", sorttype:"int"},
-	   		{name:'invdate',index:'invdate',align:"center", width:120},
+	   		{name:'invdate',index:'invdate',align:"center"},
 	   		{name:'name',index:'name',align:"center"},
-	   		{name:'amount',index:'amount', width:80, align:"center"},
-	   		{name:'tax',index:'tax', width:80, align:"center"},		
-	   		{name:'total',index:'total', width:120,align:"center", sorttype:"date"},		
-	   		{name:'note',index:'note', width:150,align:"center", sortable:false}		
+	   		{name:'amount',index:'amount',  align:"center"},
+	   		{name:'tax',index:'tax', align:"center"},		
+	   		{name:'total',index:'total',align:"center", sorttype:"date"},		
+	   		{name:'note',index:'note',align:"center", sortable:false}		
 	   	],
 	   	multiselect: true,
 	   	caption: "支出列表"
