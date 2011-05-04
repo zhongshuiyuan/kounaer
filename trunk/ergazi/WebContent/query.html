@@ -5,27 +5,27 @@
 		<p>
 		<table  cellspacing="1" cellpadding="1" class="class_form" width="100%">
 		<tr  class="ui-widget-content" >
-            <td align="center">优惠方式</td>
-			<td>
+            <td align="center" style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">优惠方式</td>
+			<td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;
 				<select name="ord" style="width: 180px">
 					<option value="">--请选择--</option>
                     <option value="">--AAA--</option>
                     <option value="">--BBB--</option>
 				</select>
 			</td>
-			<td align="center">行业</td>
-			<td><input type="text" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/></td>
+			<td align="center" style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">行业</td>
+			<td style="border-bottom: 1px solid #DEDEDE;">&nbsp;&nbsp;<input type="text" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/></td>
 		</tr>
         <tr  class="ui-widget-content" >
-            <td align="center">起始年份</td>
-			<td>
-				<input type="text" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/>
+            <td align="center" style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">起始年份</td>
+			<td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">
+				&nbsp;&nbsp;<input type="text"  id="datepicker" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/>
 			</td>
-			<td align="center">截止年份</td>
-			<td><input type="text" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/></td>
+			<td align="center" style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">截止年份</td>
+			<td style="border-bottom: 1px solid #DEDEDE;">&nbsp;&nbsp;<input type="text"  id="datepicker1" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/></td>
 		</tr>
 		<tr>
-				 <td colspan="4" align="center"><div class="demo"><button >查询</button>&nbsp;<input type="reset" value="重置" /></div>   </td>
+				 <td colspan="4" align="center"><div class="demo"><button >查询</button>&nbsp;<button>重置</button></div>   </td>
 		</tr>
         </table>
         </p>
@@ -33,9 +33,9 @@
 </div>
 </form>
 <br>
-<div class="toggler" style="width:100%">
-                    <div id="effect" class="ui-widget-content ui-corner-all" style="width:100%">
-                       <div id="custQueryList" style="width:100%"><table id="list9" width="100%"></table></div>
+<div class="toggler">
+                    <div id="effect" class="ui-widget-content ui-corner-all">
+                       <div id="custQueryList"  style="width: 99%;"><table id="list19"></table></div>
                     </div>
 </div>
 <div class="toggler">
@@ -47,15 +47,16 @@
 	</div>
 </div>
 <script type="text/javascript">
-//表格
-	jQuery("#list9").jqGrid({
+
+    //表格
+	jQuery("#list19").jqGrid({
 		datatype: "local",
-		height: 120,
-        autowidth:true,
+        autowidth:true,shrinkToFit:true,
+        altRows: true,  height: 'auto',
 	   	colNames:['分类编号','税种', '支出规模(亿元)'],
 	   	colModel:[
 	   		{name:'id',index:'id', align:"center", sorttype:"int"},
-	   		{name:'invdate',index:'invdate',align:"center", width:60},
+	   		{name:'invdate',index:'invdate',align:"center"},
 	   		{name:'name',index:'name',align:"center"}
 	   		
 	   	],
@@ -71,12 +72,18 @@
 			
 			];
 	for(var i=0;i<=mydata.length;i++)
-		jQuery("#list9").jqGrid('addRowData',i+1,mydata[i]);
+		jQuery("#list19").jqGrid('addRowData',i+1,mydata[i]);
 
-
-var chart;
-			$(document).ready(function() {
-				chart = new Highcharts.Chart({
+    //按钮
+    $("button, input:submit, a", ".demo").button();
+	$("a", ".demo").click(function() { return false; });
+    $( "#datepicker" ).datepicker();
+    $( "#datepicker1" ).datepicker();
+    
+    //图表
+    var chart;
+			$(document).ready(function() {//改变按钮ui
+					chart = new Highcharts.Chart({
 					chart: {
 						renderTo: 'container8',
 						plotBackgroundColor: null,
