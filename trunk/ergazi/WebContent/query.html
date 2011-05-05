@@ -5,27 +5,58 @@
 		<p>
 		<table  cellspacing="1" cellpadding="1" class="class_form" width="100%">
 		<tr  class="ui-widget-content" >
-            <td align="center" style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">优惠方式</td>
+            <td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;&nbsp;&nbsp;起始年份</td>
 			<td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;
-				<select name="ord" style="width: 180px">
+                <input type="text"  id="datepicker" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/>
+			</td>
+			<td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;&nbsp;&nbsp;截止年份</td>
+			<td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;
+                <input type="text"  id="datepicker1" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/></td>
+            <td  style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;&nbsp;&nbsp;图表类型</td>
+			<td style="border-bottom: 1px solid #DEDEDE;">&nbsp;&nbsp;
+				<select id="tubiaoType" name="tubiaoType" style="width: 180px">
 					<option value="">--请选择--</option>
-                    <option value="">--AAA--</option>
-                    <option value="">--BBB--</option>
+                    <option value="1">--柱状图--</option>
+                    <option value="2">--饼图--</option>
 				</select>
 			</td>
-			<td align="center" style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">行业</td>
-			<td style="border-bottom: 1px solid #DEDEDE;">&nbsp;&nbsp;<input type="text" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/></td>
+			
 		</tr>
         <tr  class="ui-widget-content" >
-            <td align="center" style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">起始年份</td>
-			<td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">
-				&nbsp;&nbsp;<input type="text"  id="datepicker" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/>
+           <td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;&nbsp;&nbsp;行业</td>
+			<td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;
+                <select name="hy" style="width: 180px" >
+					<option value="">--请选择--</option>
+				</select></td>
+            <td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;&nbsp;&nbsp;部门</td>
+			<td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;
+                <select name="hy" style="width: 180px" >
+					<option value="">--请选择--</option>
+				</select></td>
+            <td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;&nbsp;&nbsp;区域</td>
+			<td style="border-bottom: 1px solid #DEDEDE;">&nbsp;&nbsp;
+            <select name="hy" style="width: 180px" >
+					<option value="">--请选择--</option>
+				</select></td>
+		</tr>
+        <tr  class="ui-widget-content" >
+            <td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;&nbsp;&nbsp;法律级次</td>
+			<td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;
+                <select name="hy" style="width: 180px" >
+					<option value="">--请选择--</option>
+				</select>
 			</td>
-			<td align="center" style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">截止年份</td>
-			<td style="border-bottom: 1px solid #DEDEDE;">&nbsp;&nbsp;<input type="text"  id="datepicker1" name="type" style="width:60;overflow-x:visible;overflow-y:visible;"/></td>
+			<td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;&nbsp;&nbsp;是否个案</td>
+			<td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;
+                <select name="hy" style="width: 180px" >
+					<option value="">--请选择--</option>
+				</select></td>
+            <td style="border-bottom: 1px solid #DEDEDE;border-right: 1px solid #DEDEDE;">&nbsp;&nbsp;&nbsp;&nbsp;金额单位</td>
+			<td style="border-bottom: 1px solid #DEDEDE;">&nbsp;&nbsp;
+                <input type="radio" name="radio" checked="checked"/>亿元&nbsp;<input type="radio" name="radio"/>万元</td>
 		</tr>
 		<tr>
-				 <td colspan="4" align="center"><div class="demo"><button >查询</button>&nbsp;<button>重置</button></div>   </td>
+				 <td colspan="6" align="center"><div class="demo"><button onclick="tongji();return false;" >统计</button>&nbsp;&nbsp;<button>重置</button></div>   </td>
 		</tr>
         </table>
         </p>
@@ -35,14 +66,14 @@
 <br>
 <div class="toggler">
                     <div id="effect" class="ui-widget-content ui-corner-all">
-                       <div id="custQueryList"  style="width: 99%;"><table id="list19"></table></div>
+                       <div id="custQueryList"  style="width: 100%;"><table id="list19"></table></div>
                     </div>
 </div>
 <div class="toggler">
 	<div id="effect" class="ui-widget-content ui-corner-all">
 		<h3 class="ui-widget-header ui-corner-all">图表</h3>
 		
-		 <div id="container8" style="float:left; margin: 0 auto"></div>
+		 <div id="container8" style="width: 800px; height: 400px; margin: 0 auto"></div>
 		
 	</div>
 </div>
@@ -75,58 +106,113 @@
 		jQuery("#list19").jqGrid('addRowData',i+1,mydata[i]);
 
     //按钮
-    $("button, input:submit, a", ".demo").button();
+    $("button, input:submit,input:radio, a", ".demo").button();
 	$("a", ".demo").click(function() { return false; });
     $( "#datepicker" ).datepicker();
     $( "#datepicker1" ).datepicker();
-    
-    //图表
     var chart;
-			$(document).ready(function() {//改变按钮ui
-					chart = new Highcharts.Chart({
-					chart: {
-						renderTo: 'container8',
-						plotBackgroundColor: null,
-						plotBorderWidth: null,
-						plotShadow: false
-					},
-					title: {
-						text: '按税种统计, 2011'
-					},
-					tooltip: {
-						formatter: function() {
-							return '<b>'+ this.point.name +'</b>: '+ this.y +' %';
-						}
-					},
-					plotOptions: {
-						pie: {
-							allowPointSelect: true,
-							cursor: 'pointer',
-							dataLabels: {
-								enabled: false
-							},
-							showInLegend: true
-						}
-					},
-				    series: [{
-						type: 'pie',
-						name: 'Browser share',
-						data: [
-							['增值税',   45.0],
-							['营业税',       26.8],
-							{
-								name: '企业所得税',    
-								y: 12.8,
-								sliced: true,
-								selected: true
-							},
-							['房产税',    8.5],
-							['印花税',     6.2],
-							['车辆购置税',   0.7]
-						]
-					}]
-				});
+	function tongji(){
+		tubiaoType = $('#tubiaoType').val();
+		if(2==tubiaoType){
+			chart = new Highcharts.Chart({
+				chart: {
+					renderTo: 'container8',
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: false
+				},
+				title: {
+					text: '按税种统计, 2011'
+				},
+				tooltip: {
+					formatter: function() {
+						return '<b>'+ this.point.name +'</b>: '+ this.y +' %';
+					}
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: false
+						},
+						showInLegend: true
+					}
+				},
+			    series: [{
+					type: 'pie',
+					name: 'Browser share',
+					data: [
+						['增值税',   45.0],
+						['营业税',       26.8],
+						{
+							name: '企业所得税',    
+							y: 12.8,
+							sliced: true,
+							selected: true
+						},
+						['房产税',    8.5],
+						['印花税',     6.2],
+						['车辆购置税',   0.7]
+					]
+				}]
 			});
-
+		}else if(1==tubiaoType){
+			chart = new Highcharts.Chart({
+				chart: {
+					renderTo: 'container8',
+					defaultSeriesType: 'column'
+				},
+				title: {
+					text: '按税种统计'
+				},
+				xAxis: {
+					categories: ['增值税', '营业税', '企业所得税', '房产税', '印花税']
+				},
+				yAxis: {
+					min: 0,
+					title: {
+						text: ''
+					}
+				},
+				legend: {
+					align: 'right',
+					x: -100,
+					verticalAlign: 'top',
+					y: 20,
+					floating: true,
+					backgroundColor: '#FFFFFF',
+					borderColor: '#CCC',
+					borderWidth: 1,
+					shadow: false
+				},
+				tooltip: {
+					formatter: function() {
+						return '<b>'+ this.x +'</b><br/>'+
+							 this.series.name +': '+ this.y +'<br/>'+
+							 'Total: '+ this.point.stackTotal;
+					}
+				},
+				plotOptions: {
+					column: {
+						stacking: 'normal'
+					}
+				},
+			    series: [{
+					name: '一月',
+					data: [5, 3, 4, 7, 2]
+				}, {
+					name: '二月',
+					data: [2, 2, 3, 2, 1]
+				}, {
+					name: '三月',
+					data: [3, 4, 4, 2, 5]
+				}]
+			});
+		}
+		
+	}
+    
+    
 
 </script>
