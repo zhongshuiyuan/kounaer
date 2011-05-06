@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+	<title>税式支出数据库管理系统</title>
+    <link type="text/css" href="css/jquery-ui-1.8.11.custom.css" rel="stylesheet" />
+	<link type="text/css" href="css/ui.jqgrid.css" rel="stylesheet" />
+	<link type="text/css" href="css/jquery.ui.all.css" rel="stylesheet" />
+	<link type="text/css" href="css/main.css" rel="stylesheet" />
+	<script type="text/javascript" src="js/jquery-1.5.2.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.11.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery.layout.js"></script>
+	<script type="text/javascript" src="js/jquery.jqGrid.min.js"></script>
+	<script type="text/javascript" src="js/jquery.form.js"></script>	
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/fg.menu.js"></script>
+    <link type="text/css" href="css/fg.menu.css" media="screen" rel="stylesheet" />
+	<style type="text/css">
+    
+	</style>
+</head>
+
+<body>
+<!-- 布局_中 -->
+<DIV class="ui-layout-center">
+<!-- Tabs -->
+		<div id="tabs1">
+			<!--ul>
+				<li style="width: 140px">
+					<a href="#tabs-1">　按税种统计　</a><span class="ui-icon ui-icon-close">Remove Tab</span>
+				</li>
+			</ul-->
+            
+			<!--和上面对应-->
+			<div id="tabs-1">
+                <form id="custQueryForm" action="/cust.bo">
+                <input type="hidden" name="cmd" value="query" />
+                <div class="toggler">
+                    <div id="effect" class="ui-widget-content ui-corner-all" style="height: 300px; margin: 0 auto">
+                       <div id="container" style="float:left;width: 500px; height: 300px; margin: 0 auto"></div>
+                        <div id="container1" style="float:left;width: 500px; height: 300px; margin: 0 auto"></div>
+                    </div>
+                </div>
+                </form>
+                <br>
+                <div class="toggler">
+                    <div id="effect" class="ui-widget-content ui-corner-all" >
+                       <div id="custQueryList" style="width: 99%;"><table id="list9" ></table></div>
+                    </div>
+                </div>
+            
+            
+				
+			</div>
+		</div>
+</DIV>
+<!-- 布局_上 -->
+<DIV class="ui-layout-north">
+<div style="float:left"><a href=""><img src="img/logo.gif"></a></div>
+<div style="float:left">
+    <div class="head_other"> 
+    	<a href="/demo/print.html" target="_blank" title="打印">
+        	<img height="58" width="86" src="img/5.gif">
+        </a> 
+        <a href="javascript:void(0)" onclick="alert('已退出系统');" title="退出系统">
+            <img height="58" width="86" src="img/4.gif">
+        </a> 
+        <a href="javascript:void(0)" onclick="tabMenu('system');"  title="系统管理">
+            <img height="58" width="86" src="img/3.gif">
+        </a> 
+        <a href="javascript:void(0)" onclick="tabMenu('query');" title="统计查询">
+            <img height="58" width="86" src="img/2.gif">
+        </a>
+        <a href="javascript:void(0)" onclick="tabMenu('base');" title="基础信息">
+            <img height="58" width="86" src="img/1.gif">
+        </a> 
+        <span class="hot_span">&nbsp;</span> 
+    </div> 
+</div>
+</DIV>
+<!-- 布局_左 -->
+<DIV class="ui-layout-west">
+<!-- Accordion -->
+		<div id="accordion" class="tab_menu_base" >
+			<div>
+				<h3><a href="javascript:void(0)">基础信息一</a></h3>
+				<div  style="height:150px;">
+                    <ul>
+                    	<li><a href="javascript:void(0)" onclick="openTab('/demo/input.jsp');">录入信息</a></li>
+                        <li><a href="javascript:void(0)" onclick="openTab('query.html');">查询(图表)</a></li>
+                        <li><a href="javascript:void(0)" onclick="openTab('query1.html');">查询(录入)</a></li>
+                        <li><a href="javascript:void(0)" onclick="openTab('菜单一','');">基础信息</a></li>
+                        <li><a href="javascript:void(0)" onclick="openTab('菜单一','');">基础信息</a></li>
+                        <li><a href="javascript:void(0)" onclick="openTab('菜单一','');">基础信息</a></li>
+                    </ul>
+                </div>
+			</div>
+			<div>
+				<h3><a href="javascript:void(0)">基础信息二</a></h3>
+				<div>
+                    <ul>
+                       <li><a href="javascript:void(0)" onclick="openTab('菜单一','');">基础信息</a></li>
+                    </ul>
+                </div>
+			</div>
+		</div>
+        
+        <div id="accordion" class="tab_menu_query" >
+			<div>
+				<h3><a href="javascript:void(0)">数据查询</a></h3>
+				<div  style="height:150px;">
+                    <ul>
+                    	<li>  <a href="javascript:void(0)" onclick="openTab('菜单一','');">政策信息查询</a></li>
+                         <li> <a href="javascript:void(0)" onclick="openTab('菜单2','');">支出规模查询</a></li>
+                         <li> <a href="javascript:void(0)" >分类标准查询</a></li>
+                    </ul>
+                </div>
+			</div>
+			<div>
+				<h3><a href="javascript:void(0)">支出规模分类统计</a></h3>
+				<div>
+                    <ul>
+                        <li> <a href="javascript:void(0)" onclick="openTab('query.html');">按税种统计</a></li>
+                        <li> <a href="" onclick="">按税种统计</a></li>
+                        <li> <a href="" onclick="">按税种统计</a></li>
+                        <li> <a href="" onclick="">按税种统计</a></li>
+                        <li> <a href="" onclick="">按税种统计</a></li>
+                        <li> <a href="" onclick="">按税种统计</a></li>
+                        <li> <a href="" onclick="">按税种统计</a></li>
+                        <li> <a href="" onclick="">按税种统计</a></li>
+                        <li> <a href="" onclick="">按税种统计</a></li>
+                        <li> <a href="" onclick="">按税种统计</a></li>
+                        <li> <a href="" onclick="">按税种统计</a></li>
+                        <li> <a href="" onclick="">按税种统计</a></li>
+                    </ul>
+                </div>
+			</div>
+			<div>
+				<h3><a href="javascript:void(0)">按年统计</a></h3>
+				<div>按年统计</div>
+			</div>
+		</div>
+        
+        <div id="accordion" class="tab_menu_system" >
+			<div>
+				<h3><a href="javascript:void(0)">系统管理</a></h3>
+				<div  style="height:150px;">
+                    <ul>
+                    	<li>  <a href="javascript:void(0)" onclick="openTab('菜单一','');">人员管理</a></li>
+                         <li> <a href="javascript:void(0)" onclick="openTab('菜单2','');">组织管理</a></li>
+                    </ul>
+                </div>
+			</div>
+			<div>
+				<h3><a href="javascript:void(0)">人员管理</a></h3>
+				<div>
+                    <ul>
+                        <li> <a href="" onclick="">按税种统计</a></li>
+                    </ul>
+                </div>
+			</div>
+		</div>
+</DIV>
+</body>
+</html>
