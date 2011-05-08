@@ -120,7 +120,7 @@
 		<td colspan="4" align="center">
 		<div class="demo">
 		<button>保存</button>
-		&nbsp;<input type="reset" value="重置" /></div>
+		&nbsp;<button>重置</button></div>
 		</td>
 	</tr>
 </table>
