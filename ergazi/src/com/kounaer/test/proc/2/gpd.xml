@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<root-container name="2" width="1101" height="572">
+  <node name="客响" x="86" y="41" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="158" h1="100" w2="-228" h2="-6"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="142" h1="194" w2="-250" h2="-1"/>
+    </edge>
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="138" h1="283" w2="-256" h2="-5"/>
+    </edge>
+  </node>
+  <node name="预割接信息反馈" x="90" y="393" width="132" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+    </edge>
+  </node>
+  <node name="查看割接通知单" x="451" y="43" width="164" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="362" h1="0" w2="-11" h2="-350"/>
+    </edge>
+  </node>
+  <node name="查看割接通知单追单" x="453" y="147" width="170" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="320" h1="3" w2="-48" h2="-243"/>
+    </edge>
+  </node>
+  <node name="查看割接通知单撤单" x="457" y="242" width="167" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="282" h1="3" w2="-84" h2="-148"/>
+    </edge>
+  </node>
+  <node name="查看割接完成通知单" x="460" y="324" width="165" height="36">
+    <edge>
+      <label x="5" y="-10"/>
+      <bendpoint w1="259" h1="-4" w2="-105" h2="-73"/>
+    </edge>
+  </node>
+  <node name="结束" x="840" y="393" width="132" height="36"/>
+</root-container>

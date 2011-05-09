@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition  xmlns=""  name="2">
+
+
+	<start-state name="客响">
+		<transition to="预割接信息反馈" name="预割接通知单"></transition>
+		<transition to="查看割接通知单" name="割接通知单"></transition>
+		<transition to="查看割接通知单追单" name="割接通知单追单"></transition>
+		<transition to="查看割接通知单撤单" name="割接通知单撤单"></transition>
+		<transition to="查看割接完成通知单" name="割接完成通知单"></transition>
+	</start-state>
+
+
+	<task-node name="预割接信息反馈">
+		<transition to="结束"></transition>
+	</task-node>
+
+	<task-node name="查看割接通知单">
+		<transition to="结束"></transition>
+	</task-node>
+
+	<task-node name="查看割接通知单追单">
+		<transition to="结束"></transition>
+	</task-node>
+
+	<task-node name="查看割接通知单撤单">
+		<transition to="结束"></transition>
+	</task-node>
+
+	<task-node name="查看割接完成通知单">
+		<transition to="结束"></transition>
+	</task-node>
+
+
+	<end-state name="结束"></end-state>
+
+
+</process-definition>
