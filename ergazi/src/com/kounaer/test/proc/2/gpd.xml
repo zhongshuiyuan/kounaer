@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="GBK"?>
 
-<root-container name="2" width="1101" height="572">
+<root-container name="2" width="962" height="432">
   <node name="客响" x="86" y="41" width="132" height="36">
     <edge>
       <label x="5" y="-10"/>
@@ -50,5 +50,5 @@
       <bendpoint w1="259" h1="-4" w2="-105" h2="-73"/>
     </edge>
   </node>
-  <node name="结束" x="840" y="393" width="132" height="36"/>
+  <node name="结束" x="829" y="390" width="132" height="36"/>
 </root-container>
