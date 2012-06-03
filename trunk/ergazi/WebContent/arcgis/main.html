@@ -32,7 +32,7 @@ html,body {
 	var map;
 
 	function init() {
-		esri.config.defaults.io.proxyUrl = "/arcgisserver/apis/javascript/proxy/proxy.ashx";
+		esri.config.defaults.io.proxyUrl = "proxy.jsp";
 		var initExtent = new esri.geometry.Extent({
 			"xmin" : -19000410,
 			"ymin" : 860986,
