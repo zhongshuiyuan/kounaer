@@ -18,9 +18,15 @@ html,body {
 	padding: 5px;
 }
 </style>
-<script type="text/javascript">var djConfig = {parseOnLoad: true};</script>
+<script type="text/javascript">
+	var djConfig = {
+		parseOnLoad : true
+	};
+</script>
 <script type="text/javascript"
 	src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.8"></script>
+<script type="text/javascript"
+	src="wms.js"></script>	
 
 <script type="text/javascript">
 	dojo.require("dijit.layout.BorderContainer");
@@ -47,14 +53,21 @@ html,body {
 		});
 		var basemap = new esri.layers.ArcGISTiledMapServiceLayer(
 				"http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer");
-		map.addLayer(basemap);
+		//map.addLayer(basemap);
+
+		
 
 		var wmsLayer = new esri.layers.WMSLayer(
 				"http://sampleserver1.arcgisonline.com/ArcGIS/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/WMSServer");
 		//set visible layers - in this case US Cities
 		wmsLayer.setVisibleLayers([ 2 ]);
 		wmsLayer.setImageFormat("png");
-		map.addLayer(wmsLayer);
+		//map.addLayer(wmsLayer);
+		
+		myWMSLayer my = new myWMSLayer();
+		my.setVisibleLayers([ 2 ]);
+		my.setImageFormat("png");
+		map.addLayer(my);
 
 		dojo.connect(map, 'onLoad', function(theMap) {
 			//resize the map when the browser resizes
