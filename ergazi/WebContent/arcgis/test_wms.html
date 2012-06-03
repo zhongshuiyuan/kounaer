@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<link rel="stylesheet" type="text/css"
+	href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.8/js/dojo/dijit/themes/tundra/tundra.css">
+<script type="text/javascript"
+	src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.8">
+	
+</script>
+<script type="text/javascript">
+	dojo.require("esri.map");
+	dojo.declare("myWMSLayer", esri.layers.DynamicMapServiceLayer, {
+		constructor : function() {
+			this.initialExtent = this.fullExtent = new esri.geometry.Extent({
+				xmin : -179.151,
+				ymin : 18.91,
+				xmax : 179.773,
+				ymax : 71.391,
+				spatialReference : {
+					wkid : 4326
+				}
+			});
+			this.spatialReference = new esri.SpatialReference({
+				wkid : 4326
+			});
+			this.loaded = true;
+			this.onLoad(this);
+		},
+
+		getImageUrl : function(extent, width, height, callback) {
+			var params = {
+				request : "GetMap",
+				transparent : true,
+				format : "image/png",
+				bgcolor : "111111",
+				version : "1.1.0",
+				layers : "topp:USA_adm0",
+				styles : "default",
+				exceptions : "application/vnd.ogc.se_xml",
+				//changing values
+				bbox : extent.xmin + "," + extent.ymin + "," + extent.xmax
+						+ "," + extent.ymax,
+				srs : "EPSG:" + extent.spatialReference.wkid,
+				width : width,
+				height : height
+			};
+
+			callback("http://localhost:8085/geoserver/gwc/service/wms?"
+					+ dojo.objectToQuery(params));
+		}
+	})
+
+	function init() {
+		var startExtent = new esri.geometry.Extent({
+			"xmin" : -180,
+			"ymin" : -90,
+			"xmax" : 180,
+			"ymax" : 90,
+			"spatialReference" : {
+				"wkid" : 4326
+			}
+		});
+		var map = new esri.Map("map", {
+			extent : startExtent
+		});
+
+		map
+				.addLayer(new esri.layers.ArcGISTiledMapServiceLayer(
+						"http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_Imagery_World_2D/MapServer"));
+
+		map.addLayer(new myWMSLayer());
+	}
+
+	dojo.addOnLoad(init);
+</script>
+
+</head>
+<body>
+	<div id="map" class="tundra"
+		style="position: relative; width: 900px; height: 500px; border: 2px solid #000;">
+	</div>
+</body>
+</html>
