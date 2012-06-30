@@ -1,0 +1,14 @@
+.icon {
+	background: url(../images/tabicons.png) no-repeat;
+	width: 18px;
+	line-height: 18px;
+	display: inline-block;
+}
+
+.tu0101 {
+	background-position: -0px -0px;
+}
+
+.tu0201 {
+	background-position: -20px -0px;
+}
