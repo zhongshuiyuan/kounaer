@@ -5,49 +5,199 @@
 <meta http-equiv="X-UA-Compatible" content="IE=7,IE=9" />
 <meta name="viewport"
 	content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+<link rel="stylesheet" type="text/css" href="css_sprite.css" />
 <title>菜单树</title>
 </head>
 <script type="text/javascript">
+	var tree = [ {
+		"checkstate" : 0,
+		"ChildNodes" : [ {
+			"checkstate" : 0,
+			"ChildNodes" : [ {
+				"checkstate" : 0,
+				"ChildNodes" : [],
+				"complete" : true,
+				"hasChildren" : false,
+				"id" : "4",
+				"isexpand" : false,
+				"showcheck" : true,
+				"text" : "BI团队",
+				"value" : "4"
+			}, {
+				"checkstate" : 0,
+				"ChildNodes" : [ {
+					"checkstate" : 0,
+					"ChildNodes" : [],
+					"complete" : true,
+					"hasChildren" : false,
+					"id" : "7",
+					"isexpand" : false,
+					"showcheck" : true,
+					"text" : "外勤通组",
+					"value" : "7"
+				}, {
+					"checkstate" : 0,
+					"ChildNodes" : [ {
+						"checkstate" : 0,
+						"ChildNodes" : [],
+						"complete" : true,
+						"hasChildren" : false,
+						"id" : "17",
+						"isexpand " : false,
+						"showcheck" : true,
+						"text" : "测试",
+						"value" : "17"
+					} ],
+					"complete" : true,
+					"hasChildren" : true,
+					"id" : "8",
+					"isexpand" : false,
+					"showcheck" : true,
+					"text" : "平台组",
+					"value" : "8"
+				} ],
+				"complete" : true,
+				"hasChildren" : true,
+				"id" : "5",
+				"isexpand" : false,
+				"showcheck" : true,
+				"text" : "大集中业务",
+				"value" : "5"
+			}, {
+				"checkstate" : 0,
+				"ChildNodes" : [],
+				"complete" : true,
+				"hasChildren" : false,
+				"id" : "6",
+				"isexpand" : false,
+				"showcheck" : true,
+				"text" : "行业应用",
+				"value" : "6"
+			} ],
+			"complete" : true,
+			"hasChildren" : true,
+			"id" : "2",
+			"isexpand" : false,
+			"showcheck" : true,
+			"text" : "移动应用",
+			"value" : "2"
+		}, {
+			"checkstate" : 0,
+			"ChildNodes" : [ {
+				"checkstate" : 0,
+				"ChildNodes" : [ {
+					"checkstate" : 0,
+					"ChildNodes" : [],
+					"complete" : true,
+					"hasChildren" : false,
+					"id" : "18",
+					"isexpand" : false,
+					"showcheck" : true,
+					"text" : "山东车队1",
+					"value" : "18"
+				} ],
+				"complete" : true,
+				"hasChildren" : true,
+				"id" : "9",
+				"isexpand" : false,
+				"showcheck" : true,
+				"text" : "山东团队",
+				"value" : "9"
+			}, {
+				"checkstate" : 0,
+				"ChildNodes" : [],
+				"complete" : true,
+				"hasChildren" : false,
+				"id" : "10",
+				"isexpand" : false,
+				"showcheck" : true,
+				"text" : "山西团队",
+				"value" : "10"
+			}, {
+				"checkstate" : 0,
+				"ChildNodes" : [],
+				"complete" : true,
+				"hasChildren" : false,
+				"id" : "11",
+				"isexpand" : false,
+				"showcheck" : true,
+				"text" : "河北团队",
+				"value" : "11"
+			} ],
+			"complete" : true,
+			"hasChildren" : true,
+			"id" : "3",
+			"isexpand" : false,
+			"showcheck" : true,
+			"text" : "呼叫中心",
+			"value" : "3"
+		} ],
+		"complete" : true,
+		"hasChildren" : true,
+		"id" : "1",
+		"isexpand" : true,
+		"showcheck" : true,
+		"text" : "合力",
+		"value" : "1"
+	} ];
 
-var tree = [{"checkstate":0,"ChildNodes":[{"checkstate":0,"ChildNodes":[{"checkstate":0,"ChildNodes":[],"complete":true,"hasChildren":false,"id":"4","isexpand":false,"showcheck":true,"text":"BI团队","value":"4"},{"checkstate":0,"ChildNodes":[{"checkstate":0,"ChildNodes":[],"complete":true,"hasChildren":false,"id":"7","isexpand":false,"showcheck":true,"text":"外勤通组","value":"7"},{"checkstate":0,"ChildNodes":[{"checkstate":0,"ChildNodes":[],"complete":true,"hasChildren":false,"id":"17","isexpand ":false,"showcheck":true,"text":"测试","value":"17"}],"complete":true,"hasChildren":true,"id":"8","isexpand":false,"showcheck":true,"text":"平台组","value":"8"}],"complete":true,"hasChildren":true,"id":"5","isexpand":false,"showcheck":true,"text":"大集中业务","value":"5"},{"checkstate":0,"ChildNodes":[],"complete":true,"hasChildren":false,"id":"6","isexpand":false,"showcheck":true,"text":"行业应用","value":"6"}],"complete":true,"hasChildren":true,"id":"2","isexpand":false, "showcheck":true,"text":"移动应用","value":"2"},{"checkstate":0,"ChildNodes":[{"checkstate":0,"ChildNodes":[{"checkstate":0,"ChildNodes":[],"complete":true,"hasChildren":false,"id":"18","isexpand":false,"showcheck":true,"text":"山东车队1","value":"18"}],"complete":true,"hasChildren":true,"id":"9","isexpand":false,"showcheck":true,"text":"山东团队","value":"9"},{"checkstate":0,"ChildNodes":[],"complete":true,"hasChildren":false,"id":"10","isexpand":false,"showcheck":true,"text":"山西团队","value":"10"},{"checkstate":0,"ChildNodes":[],"complete":true,"hasChildren":false,"id":"11","isexpand":false,"showcheck":true,"text":"河北团队","value":"11"}],"complete":true,"hasChildren":true,"id":"3","isexpand":false,"showcheck":true,"text":"呼叫中心","value":"3"}],"complete":true,"hasChildren":true,"id":"1","isexpand":true,"showcheck":true,"text":"合力","value":"1"}];
-
-buildTreeMenu = function(tree,id_,subid_,clear,clearSub){
-	var array = [];
-	var menu = document.getElementById(id_);
-	var menuSub = document.getElementById(subid_);
-	if(clear){
-		menu.innerHTML = "";
-	}
-	if(clearSub){
-		menuSub.innerHTML = "";
-	}
-	menu.innerHTML += tree[0].text;
-	if(tree[0].hasChildren){
-		array = tree[0].ChildNodes;
-		var re = "";
-		for(var i=0; i < array.length;i++){
-			re += addTextLink(array[i].text);
-			re += "&nbsp;";
+	buildTreeMenu = function(tree, id_, subid_, clear, clearSub) {
+		var array = [];
+		var menu = document.getElementById(id_);
+		var menuSub = document.getElementById(subid_);
+		if (clear) {
+			menu.innerHTML = "";
 		}
-		menuSub.innerHTML = re;
-	}else{
-		//叶子节点
-	}
+		if (clearSub) {
+			menuSub.innerHTML = "";
+		}
+		menu.innerHTML += tree[0].text;
+		if (tree[0].hasChildren) {
+			array = tree[0].ChildNodes;
+			var re = "";
+			for ( var i = 0; i < array.length; i++) {
+				re += addTextLink(array[i].text);
+				re += "&nbsp;";
+			}
+			menuSub.innerHTML = re;
+		} else {
+			//叶子节点
+		}
 
-};
-addTextLink = function(text){
-	return "<a href='#' onclick=''>"+text+"</a>";
-};
-init = function(){
-    buildTreeMenu(tree,"treeMenu","treeSubMenu",false,false);
-}
+	};
+	addTextLink = function(text) {
+		return "<a href='#' onclick=''>" + text + "</a>";
+	};
+	init = function() {
+		buildTreeMenu(tree, "treeMenu", "treeSubMenu", false, false);
+	}
 </script>
 
 <body onload="init();">
 
-<div id="treeMenu"> > </div>
-<hr>
-<div id="treeSubMenu"></div>
+	<div id="treeMenu">></div>
+	<hr>
+	<div id="treeSubMenu"></div>
+
+	<!--span height="40" alt="锤子" border="0"
+		style="background: url(arrows.jpg) 0 0 no-repeat; width: 210px; height: 40px; display: inline-block"></span-->
+
+	<strong onclick="alert('你大爷');"
+		style="float: left; border-style: solid; border-width: 10px; border-color: #ccc #ccc #000 #ccc; height: 0"></strong>
+	<strong onclick="alert('你大爷');"
+		style="float: left; border-style: solid; border-width: 10px; border-color: #ccc #ccc #ccc #000; height: 0"></strong>
+	<strong onclick="alert('你大爷');"
+		style="float: left; border-style: solid; border-width: 10px; border-color: #000 #ccc #ccc #ccc; height: 0"></strong>
+	<strong onclick="alert('你大爷');"
+		style="float: left; border-style: solid; border-width: 10px; border-color: #ccc #000 #ccc #ccc; height: 0"></strong>
+
+	<strong
+		style="float: left; border-style: solid; border-width: 10px; border-color: #000 #ccc #ccc #ccc; height: 0; width: 0; font-size: 0"></strong>
+
+	<strong onclick="alert('你大爷');"
+		style="float: left; border-style: solid; border-width: 10px; border-color: #ccc #ccc #000 #ccc; height: 0"></strong>
+
+
 
 </body>
 
