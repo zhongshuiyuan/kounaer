@@ -184,6 +184,7 @@
                 "OpenLayers/Layer/XYZ.js",
                 "OpenLayers/Layer/UTFGrid.js",
                 "OpenLayers/Layer/OSM.js",
+                "OpenLayers/Layer/Baidu.js",
                 "OpenLayers/Layer/Bing.js",
                 "OpenLayers/Layer/TMS.js",
                 "OpenLayers/Layer/TileCache.js",
