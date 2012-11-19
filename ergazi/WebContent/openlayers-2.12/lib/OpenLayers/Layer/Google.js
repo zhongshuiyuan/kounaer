@@ -32,13 +32,13 @@ OpenLayers.Layer.Google = OpenLayers.Class(
      * Constant: MIN_ZOOM_LEVEL
      * {Integer} 0 
      */
-    MIN_ZOOM_LEVEL: 0,
+    MIN_ZOOM_LEVEL: 3,
     
     /** 
      * Constant: MAX_ZOOM_LEVEL
      * {Integer} 21
      */
-    MAX_ZOOM_LEVEL: 21,
+    MAX_ZOOM_LEVEL: 19,
 
     /** 
      * Constant: RESOLUTIONS

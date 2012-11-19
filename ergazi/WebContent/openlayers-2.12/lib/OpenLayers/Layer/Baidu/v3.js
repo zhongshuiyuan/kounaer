@@ -108,7 +108,6 @@ OpenLayers.Layer.Baidu.v3 = {
             container.appendChild(div);
 
             mapObject = new BMap.Map(div);
-            //mapObject.setCenter(new BMap.Point(116.41,39.925));
 			
             // cache elements for use by any other google layers added to
             // this same map
