@@ -38,7 +38,7 @@ OpenLayers.Layer.Baidu = OpenLayers.Class(
      * Constant: MAX_ZOOM_LEVEL
      * {Integer} 21
      */
-    MAX_ZOOM_LEVEL: 21,
+    MAX_ZOOM_LEVEL: 18,
 
     /** 
      * Constant: RESOLUTIONS

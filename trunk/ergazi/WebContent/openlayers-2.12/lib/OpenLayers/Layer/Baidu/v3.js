@@ -107,9 +107,8 @@ OpenLayers.Layer.Baidu.v3 = {
             div.style.height = "100%";
             container.appendChild(div);
 
-            // create GMap and shuffle elements
-            var center = this.map.getCenter();
             mapObject = new BMap.Map(div);
+            //mapObject.setCenter(new BMap.Point(116.41,39.925));
 			
             // cache elements for use by any other google layers added to
             // this same map
