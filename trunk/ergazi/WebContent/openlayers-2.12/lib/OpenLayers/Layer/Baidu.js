@@ -38,7 +38,7 @@ OpenLayers.Layer.Baidu = OpenLayers.Class(
      * Constant: MAX_ZOOM_LEVEL
      * {Integer} 21
      */
-    MAX_ZOOM_LEVEL: 18,
+    MAX_ZOOM_LEVEL: 19,
 
     /** 
      * Constant: RESOLUTIONS
@@ -91,7 +91,7 @@ OpenLayers.Layer.Baidu = OpenLayers.Class(
      *     projection, which allows support for vector drawing, overlaying 
      *     other maps, etc. 
      */
-    sphericalMercator: false, 
+    sphericalMercator: true, 
     
     /**
      * Property: version

@@ -90,7 +90,7 @@ OpenLayers.Layer.Amap = OpenLayers.Class(
      *     projection, which allows support for vector drawing, overlaying 
      *     other maps, etc. 
      */
-    sphericalMercator: false, 
+    sphericalMercator: true, 
     
     /**
      * Property: version
@@ -112,9 +112,7 @@ OpenLayers.Layer.Amap = OpenLayers.Class(
             options.version = "3";
         }
         var mixin = OpenLayers.Layer.Amap["v"+options.version];
-		if(!options.type){
-		   mixin.maptype = options.type;
-		}		
+        
         if (mixin) {
             OpenLayers.Util.applyDefaults(options, mixin);
         } else {
