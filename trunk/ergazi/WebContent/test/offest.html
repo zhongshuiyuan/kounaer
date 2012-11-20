@@ -21,43 +21,53 @@
 <script type="text/javascript"
 	src="http://api.go2map.com/maps/js/api_v2.5.1.js"></script>
 <script charset="utf-8" src="http://api.map.soso.com/v1.0/main.js"></script>
-<script src="http://www.tianditu.com/api/js/GeoGlobeJS.min.js"
-	type="text/javascript"></script>
+<script language="javascript" src=http://api.51ditu.com/js/maps.js></script>
 <script>
+	var lat = 3998622 / 100000;
+	var lng = 11630585 / 100000;
 	init = function() {
 		var bmap = new BMap.Map("bmap"); // 创建Map实例
-		var point = new BMap.Point(116.404, 39.915); // 创建点坐标
+		var point = new BMap.Point(lng, lat); // 创建点坐标
 		bmap.centerAndZoom(point, 15);
 
 		var gmap = new google.maps.Map(document.getElementById("gmap"), {
 			zoom : 15,
-			center : new google.maps.LatLng(39.915, 116.404),
+			center : new google.maps.LatLng(lat, lng),
 			mapTypeId : google.maps.MapTypeId.ROADMAP
 		});
 
 		var smap = new sogou.maps.Map(document.getElementById("smap"), {
 			mapControl : false
 		});
-		smap.setCenter(new sogou.maps.LatLng(39.915, 116.404), 15);
+		smap.setCenter(new sogou.maps.Convertor()
+				.toSogou(new sogou.maps.LatLng(lat, lng)), 15);
 
 		var amap = new AMap.Map("amap");
-		amap.setZoomAndCenter(15, new AMap.LngLat(116.404, 39.915));
+		amap.setZoomAndCenter(15, new AMap.LngLat(lng, lat));
+		var amarker = new AMap.Marker(
+				{
+					id : "m23",
+					position : new AMap.LngLat(lng, lat),
+					icon : "http://api.amap.com/webapi/static/Images/marker_sprite.png",
+					offset : {
+						x : -8,
+						y : -34
+					}
+				});
+		amap.addOverlays(amarker);
 
 		var somap = new soso.maps.Map(document.getElementById("somap"), {
-			center : new soso.maps.LatLng(39.915, 116.404)
+			center : new soso.maps.LatLng(lat, lng)
 		});
 		somap.setZoomLevel(15);
+		var somarker = new soso.maps.Marker({
+			position : new soso.maps.LatLng(lat, lng),
+			map : somap
+		});
 
-		var tmap = new Geo.View2D.Map("tmap");
-		var layer = new Geo.View2D.Layer.GlobeTile("全球1:100万矢量图",
-				"http://tile0.tianditu.com/services/A0512_EMap", {
-					transitionEffect : "resize",
-					topLevel : 2,
-					bottomLevel : 10,
-					maxExtent : new Geo.Bounds(-180, -90, 180, 90)
-				});
-		tmap.addLayers([ layer ]);
-		tmap.setCenter(new Geo.LonLat(116.404, 39.915), 8);
+		var lmap = new LTMaps("lmap");
+		lmap.centerAndZoom(new LTPoint(lng * 100000, lat * 100000), 2);
+		lmap.addOverLay(new LTMarker(new LTPoint(lng * 100000, lat * 100000)));
 	}
 </script>
 <style>
@@ -73,14 +83,14 @@
 	<div id="tags">Baidu, Google, Sougou, Amap, SOSO, Mapbar</div>
 	<table>
 		<tr>
-			<td><div id="bmap" class="smallmap"></div></td>
-			<td><div id="tmap" class="smallmap"></div></td>
+			<td><div id="gmap" class="smallmap"></div></td>
+			<td><div id="lmap" class="smallmap"></div></td>
 			<td><div id="smap" class="smallmap"></div></td>
 		</tr>
 		<tr>
 			<td><div id="amap" class="smallmap"></div></td>
 			<td><div id="somap" class="smallmap"></div></td>
-			<td><div id="gmap" class="smallmap"></div></td>
+			<td><div id="bmap" class="smallmap"></div></td>
 		</tr>
 	</table>
 </body>

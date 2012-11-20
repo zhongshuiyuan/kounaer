@@ -17,6 +17,7 @@
 	src="http://api.amap.com/webapi/init?v=1.1"></script>
 <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
 <script src="../openlayers-2.12/lib/OpenLayers.js"></script>
+<script language="javascript" src=http://api.51ditu.com/js/maps.js></script> 
 <script>
 	var map;
 	function init() {
@@ -38,6 +39,8 @@
 		var gmap = new OpenLayers.Layer.Google("谷歌街道图", {
 			numZoomLevels : 20
 		});
+		
+		var lmap = new OpenLayers.Layer.Ditu51("灵图街道图", {});
 
 		var china_popplaces = new OpenLayers.Layer.WMS("全国地区分布",
 				"http://192.168.4.200:8080/geoserver/postgis/wms", {
@@ -55,11 +58,11 @@
 						'EPSG:4326' : true
 					}
 				});
-		map.addLayers([ bmap, hmap, amap, gmap, china_popplaces ]);
+		map.addLayers([ bmap, hmap, amap, gmap, china_popplaces, lmap]);
 
 		map.setCenter(new OpenLayers.LonLat(116.31444444444445, 39.96055555555556).transform(
 				new OpenLayers.Projection("EPSG:4326"), map
-						.getProjectionObject()), 15);
+						.getProjectionObject()), 10);
 
 		getMarker = function(lng, lat, name, open) {
 			//var p = hollymapsupport.handle.getLatLngC(lat, lng, "google");
