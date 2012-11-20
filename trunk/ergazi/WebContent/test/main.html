@@ -17,12 +17,15 @@
 	src="http://api.amap.com/webapi/init?v=1.1"></script>
 <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
 <script src="../openlayers-2.12/lib/OpenLayers.js"></script>
-<script language="javascript" src=http://api.51ditu.com/js/maps.js></script> 
+<script language="javascript" src=http://api.51ditu.com/js/maps.js></script>
 <script>
 	var map;
+	var map2;
 	function init() {
 		map = new OpenLayers.Map('map');
+		map2 = new OpenLayers.Map('map2');
 		map.addControl(new OpenLayers.Control.LayerSwitcher());
+		map2.addControl(new OpenLayers.Control.LayerSwitcher());
 
 		var hmap = new OpenLayers.Layer.Baidu("百度混合图", {
 			type : "BMAP_HYBRID_MAP"
@@ -32,15 +35,23 @@
 			type : "BMAP_NORMAL_MAP"
 		});
 
-		var amap = new OpenLayers.Layer.Amap("高德街道图", {
-			type : "street"
-		});
+		var amap = new OpenLayers.Layer.Amap("高德街道图", {});
 
 		var gmap = new OpenLayers.Layer.Google("谷歌街道图", {
 			numZoomLevels : 20
 		});
-		
+
 		var lmap = new OpenLayers.Layer.Ditu51("灵图街道图", {});
+		
+		var lmap2 = new OpenLayers.Layer.Ditu51("灵图街道图", {});
+
+		var smap = new OpenLayers.Layer.Soso("腾讯街道图", {});
+
+		var somap = new OpenLayers.Layer.SosoSate("腾讯卫星图", {});
+
+		var mmap = new OpenLayers.Layer.Mapabc("高德企业版", {});
+		
+		var mmap2 = new OpenLayers.Layer.Mapabc("高德企业版", {});
 
 		var china_popplaces = new OpenLayers.Layer.WMS("全国地区分布",
 				"http://192.168.4.200:8080/geoserver/postgis/wms", {
@@ -58,18 +69,20 @@
 						'EPSG:4326' : true
 					}
 				});
-		map.addLayers([ bmap, hmap, amap, gmap, china_popplaces, lmap]);
+		map.addLayers([ smap, somap, amap, gmap, china_popplaces, lmap, mmap ]);
+		map2.addLayers([ mmap2, lmap2 ]);
 
-		map.setCenter(new OpenLayers.LonLat(116.31444444444445, 39.96055555555556).transform(
-				new OpenLayers.Projection("EPSG:4326"), map
-						.getProjectionObject()), 10);
+		map.setCenter(new OpenLayers.LonLat(116.31444444444445,
+				39.96055555555556).transform(new OpenLayers.Projection(
+				"EPSG:4326"), map.getProjectionObject()), 10);
+		map2.setCenter(new OpenLayers.LonLat(116.31444444444445,
+				39.96055555555556).transform(new OpenLayers.Projection(
+				"EPSG:4326"), map.getProjectionObject()), 10);
 
 		getMarker = function(lng, lat, name, open) {
-			//var p = hollymapsupport.handle.getLatLngC(lat, lng, "google");
-			var marker = new OpenLayers.Marker(
-					new OpenLayers.LonLat(/*p[1], p[0]*/lng,lat).transform(
-							new OpenLayers.Projection("EPSG:4326"), map
-									.getProjectionObject()))
+			var marker = new OpenLayers.Marker(new OpenLayers.LonLat(lng, lat)
+					.transform(new OpenLayers.Projection("EPSG:4326"), map
+							.getProjectionObject()))
 			marker.events.remove("mousedown");
 			popupClass = OpenLayers.Popup.FramedCloud;
 			popupContentHTML = name;
@@ -90,7 +103,7 @@
 			marker.events.register("mousedown", feature, markerClick);
 			return marker;
 		};
-/*
+
 		var markers = new OpenLayers.Layer.Markers("我的自定义点");
 		markers.addMarker(getMarker(104.06342451, 30.59527611, "李许言", false));
 		markers.addMarker(getMarker(120.142448, 30.171483, "曹志富", false));
@@ -103,14 +116,16 @@
 				false));
 		markers.addMarker(getMarker(116.31444444444445, 39.96055555555556,
 				"胡文华", false));
-		map.addLayer(markers);*/
+		map.addLayer(markers);
 	}
 </script>
 </head>
 <body onload="init()">
-	<h1 id="title">MyMap Layer Example</h1>
+	<h1 id="title">地图2.0版综合测试</h1>
 	<div id="tags">Baidu, api key, apikey, light</div>
-	<p id="shortdesc">Demonstrate use the Baidu/Amap/Google Maps API.</p>
+	<p id="shortdesc">Demonstrate use the
+		Mapabc/Amap/Google/Ditu51/Soso Maps API.</p>
 	<div id="map" class="smallmap"></div>
+	<div id="map2" class="smallmap"></div>
 </body>
 </html>
