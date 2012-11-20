@@ -402,8 +402,8 @@ OpenLayers.Layer.Ditu51 = OpenLayers.Class(
      */
     getLongitudeFromMapObjectLonLat: function(moLonLat) {
         return this.sphericalMercator ? 
-          this.forwardMercator(moLonLat.lng(), moLonLat.lat()).lon :
-          moLonLat.lng();  
+          this.forwardMercator(moLonLat.getLongitude(), moLonLat.getLatitude()).lon :
+          moLonLat.getLongitude();  
     },
 
     /**
@@ -417,8 +417,8 @@ OpenLayers.Layer.Ditu51 = OpenLayers.Class(
      */
     getLatitudeFromMapObjectLonLat: function(moLonLat) {
         var lat = this.sphericalMercator ? 
-          this.forwardMercator(moLonLat.lng(), moLonLat.lat()).lat :
-          moLonLat.lat(); 
+          this.forwardMercator(moLonLat.getLongitude(), moLonLat.getLatitude()).lat :
+          moLonLat.getLatitude(); 
         return lat;  
     },
     

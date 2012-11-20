@@ -343,7 +343,7 @@ OpenLayers.Layer.Ditu51.v3 = {
 					});
 			mapContainer.style.visibility = "hidden";
 		}
-
+        //console.info(zoom+"--"+this.getLtMapZoom(zoom));
 		this.mapObject.centerAndZoom(center, this.getLtMapZoom(zoom));
 	},
 

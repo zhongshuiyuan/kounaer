@@ -480,14 +480,14 @@ OpenLayers.Control.LayerSwitcher =
         OpenLayers.Element.addClass(this.layersDiv, "layersDiv");
 
         this.baseLbl = document.createElement("div");
-        this.baseLbl.innerHTML = OpenLayers.i18n("Base Layer");
+        this.baseLbl.innerHTML = "请选择地图";//OpenLayers.i18n("Base Layer");
         OpenLayers.Element.addClass(this.baseLbl, "baseLbl");
         
         this.baseLayersDiv = document.createElement("div");
         OpenLayers.Element.addClass(this.baseLayersDiv, "baseLayersDiv");
 
         this.dataLbl = document.createElement("div");
-        this.dataLbl.innerHTML = OpenLayers.i18n("Overlays");
+        this.dataLbl.innerHTML = "请选择图层";//OpenLayers.i18n("Overlays");
         OpenLayers.Element.addClass(this.dataLbl, "dataLbl");
         
         this.dataLayersDiv = document.createElement("div");
