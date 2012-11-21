@@ -17,15 +17,14 @@
 	src="http://api.amap.com/webapi/init?v=1.1"></script>
 <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
 <script src="../openlayers-2.12/lib/OpenLayers.js"></script>
+<script src="../openlayers-2.12/lib/deprecated.js"></script>
 <script language="javascript" src=http://api.51ditu.com/js/maps.js></script>
 <script>
 	var map;
-	var map2;
 	function init() {
+		OpenLayers.ProxyHost = "/cgi/proxy.cgi?url=";
 		map = new OpenLayers.Map('map');
-		map2 = new OpenLayers.Map('map2');
 		map.addControl(new OpenLayers.Control.LayerSwitcher());
-		map2.addControl(new OpenLayers.Control.LayerSwitcher());
 
 		var hmap = new OpenLayers.Layer.Baidu("百度混合图", {
 			type : "BMAP_HYBRID_MAP"
@@ -42,16 +41,12 @@
 		});
 
 		var lmap = new OpenLayers.Layer.Ditu51("灵图街道图", {});
-		
-		var lmap2 = new OpenLayers.Layer.Ditu51("灵图街道图", {});
 
 		var smap = new OpenLayers.Layer.Soso("腾讯街道图", {});
 
 		var somap = new OpenLayers.Layer.SosoSate("腾讯卫星图", {});
 
 		var mmap = new OpenLayers.Layer.Mapabc("高德企业版", {});
-		
-		var mmap2 = new OpenLayers.Layer.Mapabc("高德企业版", {});
 
 		var china_popplaces = new OpenLayers.Layer.WMS("全国地区分布",
 				"http://192.168.4.200:8080/geoserver/postgis/wms", {
@@ -69,13 +64,9 @@
 						'EPSG:4326' : true
 					}
 				});
-		map.addLayers([ smap, somap, amap, gmap, china_popplaces, lmap, mmap ]);
-		map2.addLayers([ mmap2, lmap2 ]);
+		map.addLayers([ smap, somap, amap, gmap, lmap, mmap, china_popplaces ]);
 
 		map.setCenter(new OpenLayers.LonLat(116.31444444444445,
-				39.96055555555556).transform(new OpenLayers.Projection(
-				"EPSG:4326"), map.getProjectionObject()), 10);
-		map2.setCenter(new OpenLayers.LonLat(116.31444444444445,
 				39.96055555555556).transform(new OpenLayers.Projection(
 				"EPSG:4326"), map.getProjectionObject()), 10);
 
@@ -117,7 +108,55 @@
 		markers.addMarker(getMarker(116.31444444444445, 39.96055555555556,
 				"胡文华", false));
 		map.addLayer(markers);
+
+		map.events
+				.register(
+						'click',
+						map,
+						function(e) {
+							document.getElementById('shortdesc').innerHTML = "Loading... please wait...";
+							var params = {
+								REQUEST : "GetFeatureInfo",
+								EXCEPTIONS : "application/vnd.ogc.se_xml",
+								BBOX : map.getExtent().toBBOX(),
+								SERVICE : "WMS",
+								INFO_FORMAT : 'text/html',
+								QUERY_LAYERS : map.layers[6].params.LAYERS,
+								FEATURE_COUNT : 50,
+								Layers : 'postgis:prc_popplaces',
+								WIDTH : map.size.w,
+								HEIGHT : map.size.h,
+								format : "image/png",
+								styles : map.layers[6].params.STYLES,
+								srs : map.layers[6].params.SRS
+							};
+							if (map.layers[6].params.VERSION == "1.3.0") {
+								params.version = "1.3.0";
+								params.j = e.xy.x;
+								params.i = e.xy.y;
+							} else {
+								params.version = "1.1.1";
+								params.x = Math.floor(e.xy.x);
+								params.y = Math.floor(e.xy.y);
+							}
+
+							if (map.layers[6].params.CQL_FILTER != null) {
+								params.cql_filter = map.layers[6].params.CQL_FILTER;
+							}
+							if (map.layers[6].params.FILTER != null) {
+								params.filter = map.layers[6].params.FILTER;
+							}
+							if (map.layers[6].params.FEATUREID) {
+								params.featureid = map.layers[6].params.FEATUREID;
+							}
+							OpenLayers.loadURL("http://192.168.4.200:8080/geoserver/postgis/wms",params,this,setHTML,setHTML);
+							OpenLayers.Event.stop(e);
+						});
 	}
+	setHTML = function(response) {
+		document.getElementById('shortdesc').innerHTML = "Demonstrate use the Mapabc/Amap/Google/Ditu51/Soso Maps API.";
+		document.getElementById('result').innerHTML = response.responseText;
+	};
 </script>
 </head>
 <body onload="init()">
@@ -126,6 +165,6 @@
 	<p id="shortdesc">Demonstrate use the
 		Mapabc/Amap/Google/Ditu51/Soso Maps API.</p>
 	<div id="map" class="smallmap"></div>
-	<div id="map2" class="smallmap"></div>
+	<div id="result" class="smallmap"></div>
 </body>
 </html>
