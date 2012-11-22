@@ -48,6 +48,61 @@
 
 		var mmap = new OpenLayers.Layer.Mapabc("高德企业版", {});
 
+		var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
+		renderer = (renderer) ? [ renderer ]
+				: OpenLayers.Layer.Vector.prototype.renderers;
+		var wfs = new OpenLayers.Layer.Vector("WFS示例", {
+			strategies : [ new OpenLayers.Strategy.Fixed() ],
+			projection : new OpenLayers.Projection("EPSG:4326"),
+			visibility : false,
+			renderers : renderer,
+			styleMap : new OpenLayers.StyleMap({
+				'default' : {
+					strokeColor : "#00FF00",
+					strokeOpacity : 1,
+					strokeWidth : 3,
+					fillColor : "#FF5500",
+					fillOpacity : 0.5,
+					pointRadius : 6,
+					pointerEvents : "visiblePainted",
+					//label : "${name}",
+
+					fontSize : "18px",
+					fontFamily : "宋体",
+					fontWeight : "bold",
+					labelAlign : "left",
+					labelXOffset : "${xOffset}",
+					labelYOffset : "${yOffset}",
+					labelOutlineColor : "red",
+					labelOutlineWidth : 1
+				}
+			}),
+			protocol : new OpenLayers.Protocol.WFS({
+				version : "1.0.0",
+				url : "http://192.168.4.200:8080/geoserver/postgis/wfs",
+				featureType : "movie",
+				featurePrefix : "postgis",
+				featureNS : "http://192.168.4.200:8080/postGis",
+				srsName : "EPSG:4326",
+				geometryName : "the_geom"
+			})
+		});
+		selected = function(evt) {
+			document.getElementById('result').innerHTML = "你选择的兴趣点：" + evt.feature.data.name;
+		}
+		wfs.events.register("featureselected", wfs, selected);
+		var control = new OpenLayers.Control.SelectFeature(wfs, {
+			clickout : true,
+			toggle : true,
+			multiple : false,
+			hover : false,
+			toggleKey : "ctrlKey", // ctrl key removes from selection
+			multipleKey : "shiftKey", // shift key adds to selection
+			box : false
+		});
+		map.addControl(control);
+		control.activate();
+
 		var china_popplaces = new OpenLayers.Layer.WMS("全国地区分布",
 				"http://192.168.4.200:8080/geoserver/postgis/wms", {
 					LAYERS : 'postgis:prc_popplaces',
@@ -64,11 +119,6 @@
 						'EPSG:4326' : true
 					}
 				});
-		map.addLayers([ smap, somap, amap, gmap, lmap, mmap, china_popplaces ]);
-
-		map.setCenter(new OpenLayers.LonLat(116.31444444444445,
-				39.96055555555556).transform(new OpenLayers.Projection(
-				"EPSG:4326"), map.getProjectionObject()), 10);
 
 		getMarker = function(lng, lat, name, open) {
 			var marker = new OpenLayers.Marker(new OpenLayers.LonLat(lng, lat)
@@ -95,69 +145,101 @@
 			return marker;
 		};
 
+		map.addLayers([ gmap, smap, somap, amap, lmap, mmap, china_popplaces,
+				wfs ]);
+		map.setCenter(new OpenLayers.LonLat(116.31444444444445,
+				39.96055555555556).transform(new OpenLayers.Projection(
+				"EPSG:4326"), map.getProjectionObject()), 10);
+
 		var markers = new OpenLayers.Layer.Markers("我的自定义点");
-		markers.addMarker(getMarker(104.06342451, 30.59527611, "李许言", false));
-		markers.addMarker(getMarker(120.142448, 30.171483, "曹志富", false));
-		markers.addMarker(getMarker(111.66266741, 40.81721844, "冯晓婷", false));
-		markers.addMarker(getMarker(106.70633, 26.57816, "张新改", false));
-		markers.addMarker(getMarker(117.21252947123342, 39.10680336710836,
-				"姜桥", false));
-		markers.addMarker(getMarker(102.71484342, 25.04603794, "李青", false));
-		markers.addMarker(getMarker(116.9888888888889, 36.66305555555556, "李森",
-				false));
-		markers.addMarker(getMarker(116.31444444444445, 39.96055555555556,
-				"胡文华", false));
+		markers.addMarker(getMarker(120.142, 30.1714, "曹志富", false));
+		markers.addMarker(getMarker(111.6626, 40.8172, "冯晓婷", false));
+		markers.addMarker(getMarker(116.3144, 39.9605, "胡文华", false));
 		map.addLayer(markers);
 
-		map.events
-				.register(
-						'click',
-						map,
-						function(e) {
-							document.getElementById('shortdesc').innerHTML = "Loading... please wait...";
-							var params = {
-								REQUEST : "GetFeatureInfo",
-								EXCEPTIONS : "application/vnd.ogc.se_xml",
-								BBOX : map.getExtent().toBBOX(),
-								SERVICE : "WMS",
-								INFO_FORMAT : 'text/html',
-								QUERY_LAYERS : map.layers[6].params.LAYERS,
-								FEATURE_COUNT : 50,
-								Layers : 'postgis:prc_popplaces',
-								WIDTH : map.size.w,
-								HEIGHT : map.size.h,
-								format : "image/png",
-								styles : map.layers[6].params.STYLES,
-								srs : map.layers[6].params.SRS
-							};
-							if (map.layers[6].params.VERSION == "1.3.0") {
-								params.version = "1.3.0";
-								params.j = e.xy.x;
-								params.i = e.xy.y;
-							} else {
-								params.version = "1.1.1";
-								params.x = Math.floor(e.xy.x);
-								params.y = Math.floor(e.xy.y);
-							}
+		map.setCenter(new OpenLayers.LonLat(116.3144, 39.9605).transform(
+				new OpenLayers.Projection("EPSG:4326"), map
+						.getProjectionObject()), 10);
 
-							if (map.layers[6].params.CQL_FILTER != null) {
-								params.cql_filter = map.layers[6].params.CQL_FILTER;
+		china_popplaces.events
+				.register(
+						'visibilitychanged',
+						null,
+						function(ee) {
+							var visibility = ee.object.getVisibility();
+							if (visibility) {
+								map.events
+										.register(
+												'click',
+												null,
+												function(e) {
+													document
+															.getElementById('shortdesc').innerHTML = "Loading... please wait...";
+													var params = {
+														REQUEST : "GetFeatureInfo",
+														EXCEPTIONS : "application/vnd.ogc.se_xml",
+														BBOX : map.getExtent()
+																.toBBOX(),
+														SERVICE : "WMS",
+														INFO_FORMAT : 'text/html',
+														QUERY_LAYERS : map.layers[6].params.LAYERS,
+														FEATURE_COUNT : 50,
+														Layers : 'postgis:prc_popplaces',
+														WIDTH : map.size.w,
+														HEIGHT : map.size.h,
+														format : "image/png",
+														styles : map.layers[6].params.STYLES,
+														srs : map.layers[6].params.SRS
+													};
+													if (map.layers[6].params.VERSION == "1.3.0") {
+														params.version = "1.3.0";
+														params.j = e.xy.x;
+														params.i = e.xy.y;
+													} else {
+														params.version = "1.1.1";
+														params.x = Math
+																.floor(e.xy.x);
+														params.y = Math
+																.floor(e.xy.y);
+													}
+
+													if (map.layers[6].params.CQL_FILTER != null) {
+														params.cql_filter = map.layers[6].params.CQL_FILTER;
+													}
+													if (map.layers[6].params.FILTER != null) {
+														params.filter = map.layers[6].params.FILTER;
+													}
+													if (map.layers[6].params.FEATUREID) {
+														params.featureid = map.layers[6].params.FEATUREID;
+													}
+													OpenLayers
+															.loadURL(
+																	"http://192.168.4.200:8080/geoserver/postgis/wfs",
+																	params,
+																	this,
+																	setHTML,
+																	setHTML);
+													OpenLayers.Event.stop(e);
+												});
+							} else {
+								map.events.remove('click');
 							}
-							if (map.layers[6].params.FILTER != null) {
-								params.filter = map.layers[6].params.FILTER;
-							}
-							if (map.layers[6].params.FEATUREID) {
-								params.featureid = map.layers[6].params.FEATUREID;
-							}
-							OpenLayers.loadURL("http://192.168.4.200:8080/geoserver/postgis/wms",params,this,setHTML,setHTML);
-							OpenLayers.Event.stop(e);
+							OpenLayers.Event.stop(ee);
 						});
+
 	}
 	setHTML = function(response) {
 		document.getElementById('shortdesc').innerHTML = "Demonstrate use the Mapabc/Amap/Google/Ditu51/Soso Maps API.";
 		document.getElementById('result').innerHTML = response.responseText;
 	};
 </script>
+<style>
+.smallmap {
+	width: 630px;
+	height: 296px;
+	border: 1px solid #CCC;
+}
+</style>
 </head>
 <body onload="init()">
 	<h1 id="title">地图2.0版综合测试</h1>
