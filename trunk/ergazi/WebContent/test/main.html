@@ -88,7 +88,9 @@
 			})
 		});
 		selected = function(evt) {
-			document.getElementById('result').innerHTML = "你选择的兴趣点：" + evt.feature.data.name;
+			document.getElementById('result').innerHTML = "<font size='6' color='red'>你选择的兴趣点："
+					+ evt.feature.data.name +" <br>经度："+evt.feature.data.longitude+" <br>纬度："+evt.feature.data.latitude+ "</font>";
+						longitude
 		}
 		wfs.events.register("featureselected", wfs, selected);
 		var control = new OpenLayers.Control.SelectFeature(wfs, {
@@ -102,6 +104,87 @@
 		});
 		map.addControl(control);
 		control.activate();
+
+		var beijing = new OpenLayers.Layer.Vector("北京行政区", {
+			strategies : [ new OpenLayers.Strategy.Fixed() ],
+			projection : new OpenLayers.Projection("EPSG:4326"),
+			visibility : false,
+			renderers : renderer,
+			styleMap : new OpenLayers.StyleMap({
+				'default' : {
+					strokeColor : "#00FF00",
+					strokeOpacity : 1,
+					strokeWidth : 3,
+					fillColor : "#FF5500",
+					fillOpacity : 0.5,
+					pointRadius : 6,
+					pointerEvents : "visiblePainted",
+					//label : "${name}",
+
+					fontSize : "18px",
+					fontFamily : "宋体",
+					fontWeight : "bold",
+					labelAlign : "left",
+					labelXOffset : "${xOffset}",
+					labelYOffset : "${yOffset}",
+					labelOutlineColor : "red",
+					labelOutlineWidth : 1
+				}
+			}),
+			protocol : new OpenLayers.Protocol.WFS({
+				version : "1.0.0",
+				url : "http://192.168.4.200:8080/geoserver/postgis/wfs",
+				featureType : "beijing_province_2006",
+				featurePrefix : "postgis",
+				featureNS : "http://192.168.4.200:8080/postGis",
+				srsName : "EPSG:4326",
+				geometryName : "the_geom"
+			})
+		});
+		selectedbeijing = function(evt) {
+			document.getElementById('result').innerHTML = "<font size='10' color='red'>你选择的区域："
+					+ evt.feature.data.cnty_nm + "</font>";
+		}
+		beijing.events.register("featureselected", null, selectedbeijing);
+		var controlbeijing = new OpenLayers.Control.SelectFeature(beijing, {
+			clickout : true,
+			toggle : true,
+			multiple : false,
+			hover : false,
+			toggleKey : "ctrlKey", // ctrl key removes from selection
+			multipleKey : "shiftKey", // shift key adds to selection
+			box : false
+		});
+		map.addControl(controlbeijing);
+		controlbeijing.activate();
+
+		var bj = new OpenLayers.Layer.WMS("混合图层",
+				"http://192.168.4.200:8080/geoserver/wms", {
+					LAYERS : 'beijing',
+					STYLES : '',
+					format : "image/jpeg",
+					tiled : true,
+					transparent : true
+				}, {
+					buffer : 0,
+					displayOutsideMaxExtent : true,
+					isBaseLayer : false,
+					visibility : false,
+					yx : {
+						'EPSG:4326' : true
+					}
+				});
+		var gml = new OpenLayers.Layer.Vector(
+				"GML图层",
+				{
+					protocol : new OpenLayers.Protocol.HTTP(
+							{
+								url : "http://192.168.4.200:8080/geoserver/postgis/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=postgis:prc_popplaces&maxFeatures=500",
+								format : new OpenLayers.Format.GML()
+							}),
+					strategies : [ new OpenLayers.Strategy.Fixed() ],
+					visibility : false
+				});
 
 		var china_popplaces = new OpenLayers.Layer.WMS("全国地区分布",
 				"http://192.168.4.200:8080/geoserver/postgis/wms", {
@@ -119,6 +202,31 @@
 						'EPSG:4326' : true
 					}
 				});
+
+		var drawControls = {
+			point : new OpenLayers.Control.DrawFeature(wfs,
+					OpenLayers.Handler.Point),
+			line : new OpenLayers.Control.DrawFeature(wfs,
+					OpenLayers.Handler.Path),
+			polygon : new OpenLayers.Control.DrawFeature(wfs,
+					OpenLayers.Handler.Polygon)
+		};
+		for ( var key in drawControls) {
+			map.addControl(drawControls[key]);
+		}
+		toggleControl = function(element) {
+			for (key in drawControls) {
+				var control = drawControls[key];
+				if (element.value == key && element.checked) {
+					control.activate();
+				} else {
+					control.deactivate();
+				}
+				if (element.value == "cancel") {
+					control.deactivate();
+				}
+			}
+		};
 
 		getMarker = function(lng, lat, name, open) {
 			var marker = new OpenLayers.Marker(new OpenLayers.LonLat(lng, lat)
@@ -146,7 +254,7 @@
 		};
 
 		map.addLayers([ gmap, smap, somap, amap, lmap, mmap, china_popplaces,
-				wfs ]);
+				gml, beijing, bj, wfs ]);
 		map.setCenter(new OpenLayers.LonLat(116.31444444444445,
 				39.96055555555556).transform(new OpenLayers.Projection(
 				"EPSG:4326"), map.getProjectionObject()), 10);
@@ -236,7 +344,7 @@
 <style>
 .smallmap {
 	width: 630px;
-	height: 296px;
+	height: 396px;
 	border: 1px solid #CCC;
 }
 </style>
@@ -246,7 +354,22 @@
 	<div id="tags">Baidu, api key, apikey, light</div>
 	<p id="shortdesc">Demonstrate use the
 		Mapabc/Amap/Google/Ditu51/Soso Maps API.</p>
-	<div id="map" class="smallmap"></div>
-	<div id="result" class="smallmap"></div>
+	<div style="float: left; width: 630px; height: 800px;">
+		<div id="map" class="smallmap"></div>
+		<div id="result" class="smallmap"></div>
+	</div>
+	<div style="float: left; width: 630px; height: 800px;">
+		<div id="panel" class="smallmap">
+			<input type="radio" name="draw" value="point" id="A01"
+				onclick="toggleControl(this)"><label for="A01">画点</label> <input
+				type="radio" name="draw" value="line" id="A02"
+				onclick="toggleControl(this)"><label for="A02">画线</label> <input
+				type="radio" name="draw" value="polygon" id="A03"
+				onclick="toggleControl(this)"><label for="A03">画面</label> <input
+				type="radio" name="draw" value="cancel" id="A04"
+				onclick="toggleControl(this)"><label for="A04">无</label>
+		</div>
+	</div>
+
 </body>
 </html>
