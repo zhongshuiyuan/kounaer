@@ -21,10 +21,17 @@
 <script type="text/javascript"
 	src="http://api.go2map.com/maps/js/api_v2.5.1.js"></script>
 <script charset="utf-8" src="http://api.map.soso.com/v1.0/main.js"></script>
-<script language="javascript" src=http://api.51ditu.com/js/maps.js></script>
+<script src=http://api.51ditu.com/js/maps.js></script>
+<script type="text/javascript"
+	src="http://union.mapbar.com/apis/maps/free?f=mapi&v=31.2&k=aCW9cItqL7sqT7AxaB0zdHZoZSWmbBsuT7JhMHTsMeD6ZIl9NzFsZHT=@JBL979@Iu7lJJZWWq0IDu9xZMzMxq7I9AhH7LAAA6hqzZHZZLTbZZauxlDz7C7DD9ZCFGT="></script>
+<script src="http://api.maps.nokia.com.cn/2.1.1/jsl.js"
+	type="text/javascript" charset="utf-8"></script>
 <script>
-	var lat = 3989912 / 100000;
-	var lng = 11636408 / 100000;
+	//var lat = 3989912 / 100000;
+	//var lng = 11636408 / 100000;
+
+	var lat = 146310620 / 3600000;
+	var lng = 414247815 / 3600000;
 	init = function() {
 		var bmap = new BMap.Map("bmap"); // 创建Map实例
 		var point = new BMap.Point(lng, lat); // 创建点坐标
@@ -68,6 +75,16 @@
 		var lmap = new LTMaps("lmap");
 		lmap.centerAndZoom(new LTPoint(lng * 100000, lat * 100000), 2);
 		lmap.addOverLay(new LTMarker(new LTPoint(lng * 100000, lat * 100000)));
+
+		var maplet = new Maplet("mmap");
+		maplet.centerAndZoom(new MPoint(lng, lat), 10);
+		maplet.addControl(new MStandardControl());
+
+		var nmap = new nokia.maps.map.Display(document.getElementById("map"), {
+			'zoomLevel' : 10, // Zoom level for the map
+			'center' : [ 52.51, 13.4 ]
+		// Center coordinates
+		});
 	}
 </script>
 <style>
@@ -91,6 +108,11 @@
 			<td><div id="amap" class="smallmap"></div></td>
 			<td><div id="somap" class="smallmap"></div></td>
 			<td><div id="bmap" class="smallmap"></div></td>
+		</tr>
+		<tr>
+			<td><div id="mmap" class="smallmap"></div></td>
+			<td><div id="nmap" class="smallmap"></div></td>
+			<td></td>
 		</tr>
 	</table>
 </body>
