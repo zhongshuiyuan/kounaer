@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- http://127.0.0.1:8080/test/main.html -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -26,6 +27,21 @@
 		map = new OpenLayers.Map('map');
 		map.addControl(new OpenLayers.Control.LayerSwitcher());
 
+		var gphy = new OpenLayers.Layer.Google("Google Physical", {
+			type : G_PHYSICAL_MAP
+		});
+		var gmap = new OpenLayers.Layer.Google("谷歌街道图", {
+			numZoomLevels : 20
+		});
+		var ghyb = new OpenLayers.Layer.Google("Google Hybrid", {
+			type : G_HYBRID_MAP,
+			numZoomLevels : 20
+		});
+		var gsat = new OpenLayers.Layer.Google("Google Satellite", {
+			type : G_SATELLITE_MAP,
+			numZoomLevels : 22
+		});
+
 		var hmap = new OpenLayers.Layer.Baidu("百度混合图", {
 			type : "BMAP_HYBRID_MAP"
 		});
@@ -35,10 +51,6 @@
 		});
 
 		var amap = new OpenLayers.Layer.Amap("高德街道图", {});
-
-		var gmap = new OpenLayers.Layer.Google("谷歌街道图", {
-			numZoomLevels : 20
-		});
 
 		var lmap = new OpenLayers.Layer.Ditu51("灵图街道图", {});
 
@@ -89,8 +101,12 @@
 		});
 		selected = function(evt) {
 			document.getElementById('result').innerHTML = "<font size='6' color='red'>你选择的兴趣点："
-					+ evt.feature.data.name +" <br>经度："+evt.feature.data.longitude+" <br>纬度："+evt.feature.data.latitude+ "</font>";
-						longitude
+					+ evt.feature.data.name
+					+ " <br>经度："
+					+ evt.feature.data.longitude
+					+ " <br>纬度："
+					+ evt.feature.data.latitude + "</font>";
+			longitude
 		}
 		wfs.events.register("featureselected", wfs, selected);
 		var control = new OpenLayers.Control.SelectFeature(wfs, {
@@ -253,8 +269,8 @@
 			return marker;
 		};
 
-		map.addLayers([ gmap, smap, somap, amap, lmap, mmap, china_popplaces,
-				gml, beijing, bj, wfs ]);
+		map.addLayers([ hmap, bmap, gmap, smap, somap, amap, lmap, mmap,
+				china_popplaces, gml, beijing, bj, wfs ]);
 		map.setCenter(new OpenLayers.LonLat(116.31444444444445,
 				39.96055555555556).transform(new OpenLayers.Projection(
 				"EPSG:4326"), map.getProjectionObject()), 10);
