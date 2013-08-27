@@ -32,13 +32,13 @@ OpenLayers.Layer.Ditu51 = OpenLayers.Class(
      * Constant: MIN_ZOOM_LEVEL
      * {Integer} 0 
      */
-    MIN_ZOOM_LEVEL: 3,
+    MIN_ZOOM_LEVEL: 4,
     
     /** 
      * Constant: MAX_ZOOM_LEVEL
      * {Integer} 21
      */
-    MAX_ZOOM_LEVEL: 19,
+    MAX_ZOOM_LEVEL: 17,
 
     /** 
      * Constant: RESOLUTIONS
