@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- http://127.0.0.1:8080/test/index-2.13.htm -->
+<!-- http://192.168.4.10:8080/test/index-2.13.htm -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -42,9 +42,14 @@
 
 		var mmap = new OpenLayers.Layer.Mapabc("MapABC", {});
 
+		var tdt = new OpenLayers.Layer.Tianditu("天地图", {});
+		
+		var tdtm = new OpenLayers.Layer.TiandituMark("天地图中文标记", {});
+		
 		var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
 		renderer = (renderer) ? [ renderer ]
 				: OpenLayers.Layer.Vector.prototype.renderers;
+		
 		var wfs = new OpenLayers.Layer.Vector("WFS示例", {
 			strategies : [ new OpenLayers.Strategy.Fixed() ],
 			projection : new OpenLayers.Projection("EPSG:4326"),
@@ -252,7 +257,7 @@
 		};
 
 		map.addLayers([ gphy, gmap, ghyb, gsat, lmap, mmap, china_popplaces,
-				gml, beijing, bj, wfs ]);
+				gml, beijing, bj, wfs, tdt, tdtm ]);
 		map.setCenter(new OpenLayers.LonLat(116.31444444444445,
 				39.96055555555556).transform(new OpenLayers.Projection(
 				"EPSG:4326"), map.getProjectionObject()), 10);
