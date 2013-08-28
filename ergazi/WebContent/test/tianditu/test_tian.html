@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=GB2312 "/>
+<title>HELLO WORLD</title>
+<script language="javascript" src="http://api.tianditu.com/js/maps.js"></script>
+<script language="javascript">
+	var map, zoom = 12;
+	function onLoad() {
+		//初始化地图对象
+		map = new TMap("mapDiv");
+		//设置显示地图的中心点和级别
+		map.centerAndZoom(new TLngLat(116.40969, 39.89945), zoom);
+	}
+</script>
+</head>
+<body onLoad="onLoad()">
+	<div id="mapDiv"
+		style="position: absolute; width: 500px; height: 400px"></div>
+</body>
+</html>
