@@ -8,14 +8,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>OpenLayers MyMap Layer Example</title>
 <link rel="stylesheet"
-	href="../openlayers-2.13.1/theme/default/style.css" type="text/css">
+	href="/openlayers-2.13.1/theme/default/style.css" type="text/css">
 <link rel="stylesheet"
-	href="../openlayers-2.13.1/theme/default/google.css" type="text/css">
-<link rel="stylesheet" href="../openlayers-2.13.1/examples/style.css"
+	href="/openlayers-2.13.1/theme/default/google.css" type="text/css">
+<link rel="stylesheet" href="/openlayers-2.13.1/examples/style.css"
 	type="text/css">
 <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
-<script src="../openlayers-2.13.1/lib/OpenLayers.js"></script>
-<script src="../openlayers-2.13.1/lib/deprecated.js"></script>
+<script src="/openlayers-2.13.1/lib/OpenLayers.js"></script>
+<script src="/openlayers-2.13.1/lib/deprecated.js"></script>
 <script src=http://api.51ditu.com/js/maps.js></script>
 <script>
 	var map;
@@ -42,14 +42,16 @@
 
 		var mmap = new OpenLayers.Layer.Mapabc("MapABC", {});
 
-		var tdt = new OpenLayers.Layer.Tianditu("天地图", {});
+		var tdt = new OpenLayers.Layer.Tianditu("街道图", {});
+
+		var tdtm = new OpenLayers.Layer.TiandituMark("中文标记", {});
 		
-		var tdtm = new OpenLayers.Layer.TiandituMark("天地图中文标记", {});
-		
+		var tdts = new OpenLayers.Layer.TiandituSatellite("卫星图",{});
+
 		var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
 		renderer = (renderer) ? [ renderer ]
 				: OpenLayers.Layer.Vector.prototype.renderers;
-		
+
 		var wfs = new OpenLayers.Layer.Vector("WFS示例", {
 			strategies : [ new OpenLayers.Strategy.Fixed() ],
 			projection : new OpenLayers.Projection("EPSG:4326"),
@@ -256,8 +258,7 @@
 			return marker;
 		};
 
-		map.addLayers([ gphy, gmap, ghyb, gsat, lmap, mmap, china_popplaces,
-				gml, beijing, bj, wfs, tdt, tdtm ]);
+		map.addLayers([ gphy, gsat,china_popplaces, gml, beijing, bj, wfs, tdt, tdtm, tdts ]);
 		map.setCenter(new OpenLayers.LonLat(116.31444444444445,
 				39.96055555555556).transform(new OpenLayers.Projection(
 				"EPSG:4326"), map.getProjectionObject()), 10);
@@ -354,10 +355,9 @@
 </style>
 </head>
 <body onload="init()">
-	<h1 id="title">地图2.0版综合测试</h1>
-	<div id="tags">Baidu, api key, apikey, light</div>
-	<p id="shortdesc">Demonstrate use the
-		Mapabc/Amap/Google/Ditu51/Soso Maps API.</p>
+	<h1 id="title">地图2.0版-天地图测试</h1>
+	<div id="tags">tianditu, api key, apikey, light</div>
+	<p id="shortdesc">Demonstrate use the openlayers api.</p>
 	<div style="float: left; width: 630px; height: 800px;">
 		<div id="map" class="smallmap"></div>
 		<div id="result" class="smallmap"></div>
