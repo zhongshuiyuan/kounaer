@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- http://127.0.0.1:8080/test/offest.html -->
+<!-- http://192.168.4.10:8080/test/offest.html -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -78,8 +78,8 @@
 		tmap.centerAndZoom(new TLngLat(116.31800626, 39.95970557), 17);
 		var tmarker = new TMarker(new TLngLat(116.31800626, 39.95970557));
 		tmap.addOverLay(tmarker);
-		var infoWin=tmarker.openInfoWinHtml("窗口的内容");
-		infoWin.setTitle("窗口的标题");
+		var infoWin=tmarker.openInfoWinHtml("北京市海淀区，中关村南大街附近，天作万瑞购物中心附近");
+		infoWin.setTitle("GPS定位结果展示『未纠偏』");
 
 		
 		var tmap1 = new TMap("tmap1");
@@ -95,6 +95,14 @@
 		tmap2.addOverLay(tmarker2);
 		var infoWin2=tmarker2.openInfoWinHtml("北京市海淀区，中关村南大街附近，天作万瑞购物中心附近");
 		infoWin2.setTitle("LBS定位结果展示『已纠偏』");
+		
+		var tmap3 = new TMap("tmap3");
+		tmap3.centerAndZoom(new TLngLat(116.31800626, 39.95970557), 17);
+		tmap3.setMapType(TMAP_HYBRID_MAP);
+		var tmarker3 = new TMarker(new TLngLat(116.31800626, 39.95970557));
+		tmap3.addOverLay(tmarker3);
+		var infoWin3=tmarker3.openInfoWinHtml("北京市海淀区，中关村南大街附近，天作万瑞购物中心附近");
+		infoWin3.setTitle("GPS定位结果展示『未纠偏』");
 
 	}
 </script>
@@ -124,6 +132,11 @@
 			<td><div id="tmap" class="smallmap"></div></td>
 			<td><div id="tmap1" class="smallmap"></div></td>
 			<td><div id="tmap2" class="smallmap"></div></td>
+		</tr>
+		<tr>
+			<td><div id="tmap3" class="smallmap"></div></td>
+			<td><div id="tmap4" class="smallmap"></div></td>
+			<td><div id="tmap5" class="smallmap"></div></td>
 		</tr>
 	</table>
 </body>
