@@ -76,8 +76,25 @@
 
 		var tmap = new TMap("tmap");
 		tmap.centerAndZoom(new TLngLat(116.31800626, 39.95970557), 17);
-		var tmarker1 = new TMarker(new TLngLat(116.31800626, 39.95970557));
-		tmap.addOverLay(tmarker1);
+		var tmarker = new TMarker(new TLngLat(116.31800626, 39.95970557));
+		tmap.addOverLay(tmarker);
+		var infoWin=tmarker.openInfoWinHtml("窗口的内容");
+		infoWin.setTitle("窗口的标题");
+
+		
+		var tmap1 = new TMap("tmap1");
+		tmap1.centerAndZoom(new TLngLat(116.31704888889, 39.960001111111), 17);
+		var tmarker1 = new TMarker(new TLngLat(116.31704888889, 39.960001111111));
+		tmap1.addOverLay(tmarker1);
+		var infoWin1=tmarker1.openInfoWinHtml("北京市海淀区，中关村南大街附近，天作万瑞购物中心附近");
+		infoWin1.setTitle("LBS定位结果展示『未纠偏』");
+		
+		var tmap2 = new TMap("tmap2");
+		tmap2.centerAndZoom(new TLngLat(116.32317, 39.96129), 17);
+		var tmarker2 = new TMarker(new TLngLat(116.32317, 39.96129));
+		tmap2.addOverLay(tmarker2);
+		var infoWin2=tmarker2.openInfoWinHtml("北京市海淀区，中关村南大街附近，天作万瑞购物中心附近");
+		infoWin2.setTitle("LBS定位结果展示『已纠偏』");
 
 	}
 </script>
@@ -105,8 +122,8 @@
 		</tr>
 		<tr>
 			<td><div id="tmap" class="smallmap"></div></td>
-			<td></td>
-			<td></td>
+			<td><div id="tmap1" class="smallmap"></div></td>
+			<td><div id="tmap2" class="smallmap"></div></td>
 		</tr>
 	</table>
 </body>
