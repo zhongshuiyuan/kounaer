@@ -9,6 +9,7 @@ var layer = new OpenLayers.Layer.Google("Google Hybrid", {
 	type : google.maps.MapTypeId.HYBRID,
 	numZoomLevels : 20
 });
+var ditu51 = new OpenLayers.Layer.Ditu51("灵图街道图", {});
 var vector = new OpenLayers.Layer.Vector('vector');
 map.addLayers([ layer, vector ]);
 
@@ -56,6 +57,7 @@ map.addControl(geolocate);
 var firstGeolocation = true;
 geolocate.events.register("locationupdated", geolocate, function(e) {
 	vector.removeAllFeatures();
+	console.info(e.position.coords.latitude+"::::"+e.position.coords.longitude);
 	var circle = new OpenLayers.Feature.Vector(OpenLayers.Geometry.Polygon
 			.createRegularPolygon(new OpenLayers.Geometry.Point(e.point.x,
 					e.point.y), e.position.coords.accuracy / 2, 40, 0), {},
