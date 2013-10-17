@@ -168,6 +168,7 @@
                 "OpenLayers/Layer/Google/v3.js",
                 "OpenLayers/Layer/Ditu51.js",
                 "OpenLayers/Layer/Ditu51/v3.js",
+                "OpenLayers/Layer/Baidu.js",
                 "OpenLayers/Layer/HTTPRequest.js",
                 "OpenLayers/Layer/Grid.js",
                 "OpenLayers/Layer/MapGuide.js",
