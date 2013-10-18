@@ -64,7 +64,8 @@ OpenLayers.Layer.Baidu.v3 = {
      */
     DEFAULTS: {
         sphericalMercator: true,
-        projection: "EPSG:900913"
+        //projection: "EPSG:900913"
+        	projection: "EPSG:102113"
     },
 
     /**
