@@ -20,44 +20,100 @@
 <script src=http://api.51ditu.com/js/maps.js></script>
 <script src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
 <script>
-	var map;
+	var map; // 地图
+	var vlayer; // 矢量层
+	var vector; //定位层
+	var geolocate; // 定位控件
+	var style = {
+		fillColor : '#000',
+		fillOpacity : 0.1,
+		strokeWidth : 0
+	};
 	function init() {
 		OpenLayers.ProxyHost = "/cgi/proxy.cgi?url=";
 
-		map = new OpenLayers.Map('map');
+		vlayer = new OpenLayers.Layer.Vector("点线面层");
+		vector = new OpenLayers.Layer.Vector('定位标记层');
+		map = new OpenLayers.Map('map', {
+			controls : [ new OpenLayers.Control.PanZoom(),
+					new OpenLayers.Control.EditingToolbar(vlayer) ]
+		});
+		geolocate = new OpenLayers.Control.Geolocate({
+			bind : false,
+			geolocationOptions : {
+				enableHighAccuracy : false,
+				maximumAge : 0,
+				timeout : 7000
+			}
+		});
+		map.addControl(geolocate);
 
-		var gphy = new OpenLayers.Layer.Google("Google Physical", {
-			type : google.maps.MapTypeId.TERRAIN
+		geolocate.events.register("locationupdated", geolocate, function(e) {
+			vector.removeAllFeatures();
+			console.info(e.position.coords.latitude + "::::"
+					+ e.position.coords.longitude);
+			var circle = new OpenLayers.Feature.Vector(
+					OpenLayers.Geometry.Polygon
+							.createRegularPolygon(
+									new OpenLayers.Geometry.Point(e.point.x,
+											e.point.y),
+									e.position.coords.accuracy / 2, 40, 0), {},
+					style);
+			vector.addFeatures([ new OpenLayers.Feature.Vector(e.point, {}, {
+				graphicName : 'cross',
+				strokeColor : '#f00',
+				strokeWidth : 2,
+				fillOpacity : 0,
+				pointRadius : 10
+			}), circle ]);
+			map.zoomToExtent(vector.getDataExtent());
+			pulsate(circle);
+			this.bind = true;
 		});
-		var gmap = new OpenLayers.Layer.Google("Google Streets", {
-			numZoomLevels : 20
+		geolocate.events.register("locationfailed", this, function() {
+			OpenLayers.Console.log('Location detection failed');
+			alert("定位失败！");
 		});
-		var ghyb = new OpenLayers.Layer.Google("Google Hybrid", {
-			type : google.maps.MapTypeId.HYBRID,
-			numZoomLevels : 20
+
+		//var gphy = new OpenLayers.Layer.Google("Google Physical", {
+		//numZoomLevels : 18,
+		//type : google.maps.MapTypeId.TERRAIN
+		//});
+		var gmap = new OpenLayers.Layer.Google("谷歌街道", {
+			numZoomLevels : 18
 		});
-		var gsat = new OpenLayers.Layer.Google("Google Satellite", {
-			type : google.maps.MapTypeId.SATELLITE,
-			numZoomLevels : 22
-		});
+		//var ghyb = new OpenLayers.Layer.Google("谷歌混合", {
+		//type : google.maps.MapTypeId.HYBRID,
+		//numZoomLevels : 18
+		//});
+		//var gsat = new OpenLayers.Layer.Google("谷歌卫星", {
+		//type : google.maps.MapTypeId.SATELLITE,
+		//numZoomLevels : 18
+		//});
 
 		//var hmap = new OpenLayers.Layer.Baidu("百度混合图", {
 		//type : "BMAP_HYBRID_MAP"
 		//});
 
-		var bmap = new OpenLayers.Layer.Baidu("百度街道图", {
-			type : "BMAP_NORMAL_MAP"
-		});
+		//var bmap = new OpenLayers.Layer.Baidu("百度街道图", {
+		//type : "BMAP_NORMAL_MAP"
+		//});
 
 		//var amap = new OpenLayers.Layer.Amap("高德街道图", {});
 
 		//var smap = new OpenLayers.Layer.Soso("腾讯街道图", {});
 
-		//var somap = new OpenLayers.Layer.SosoSate("腾讯卫星图", {});
+		var somap = new OpenLayers.Layer.SosoSate("腾讯卫星", {});
 
-		var lmap = new OpenLayers.Layer.Ditu51("灵图街道图", {});
+		var lmap = new OpenLayers.Layer.Ditu51("灵图街道", {});
 
-		var mmap = new OpenLayers.Layer.Mapabc("MapABC", {});
+		var mmap = new OpenLayers.Layer.Mapabc("图盟科技", {});
+
+		var tdt = new OpenLayers.Layer.Tianditu("天地图", {});
+
+		var tdtm = new OpenLayers.Layer.TiandituMark("中文标记", {});
+
+		//var tdts = new OpenLayers.Layer.TiandituSatellite("卫星图",{});
 
 		var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
 		renderer = (renderer) ? [ renderer ]
@@ -242,15 +298,15 @@
 				}
 			}
 		};
-		
-		var size = new OpenLayers.Size(25,25);
-		var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+
+		var size = new OpenLayers.Size(25, 25);
+		var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
 		var icon = new OpenLayers.Icon('/img/GreenDot.png', size, offset);
 
 		getMarker = function(lng, lat, name, open) {
 			var marker = new OpenLayers.Marker(new OpenLayers.LonLat(lng, lat)
 					.transform(new OpenLayers.Projection("EPSG:4326"), map
-							.getProjectionObject()),icon.clone())
+							.getProjectionObject()), icon.clone())
 			marker.events.remove("mousedown");
 			popupClass = OpenLayers.Popup.FramedCloud;
 			popupContentHTML = name;
@@ -272,8 +328,8 @@
 			return marker;
 		};
 
-		map.addLayers([ gphy, gmap, ghyb, gsat, lmap, mmap, china_popplaces,
-				gml, beijing, bj, wfs, bmap ]);
+		map.addLayers([ lmap, tdt, gmap, mmap, china_popplaces, gml, beijing, bj,
+				wfs, somap, vector, vlayer ]);
 		map.setCenter(new OpenLayers.LonLat(116.31444444444445,
 				39.96055555555556).transform(new OpenLayers.Projection(
 				"EPSG:4326"), map.getProjectionObject()), 10);
@@ -288,6 +344,16 @@
 		map.setCenter(new OpenLayers.LonLat(116.3144, 39.9605).transform(
 				new OpenLayers.Projection("EPSG:4326"), map
 						.getProjectionObject()), 10);
+
+		//注册天地图可见变化事件，选择天地图时同时添加对应的中文标记图层，否则取消该图层
+		tdt.events.register('visibilitychanged', null, function(e) {
+			var visibility = e.object.getVisibility();
+			if (visibility) {
+				map.addLayers([ tdtm ]);
+			} else {
+				map.removeLayer(tdtm);
+			}
+		});
 
 		china_popplaces.events
 				.register(
@@ -355,10 +421,53 @@
 							OpenLayers.Event.stop(ee);
 						});
 
-	}
+	};
 	setHTML = function(response) {
 		document.getElementById('shortdesc').innerHTML = "Demonstrate use the Mapabc/Amap/Google/Ditu51/Soso Maps API.";
 		document.getElementById('result').innerHTML = response.responseText;
+	};
+
+	var pulsate = function(feature) {
+		var point = feature.geometry.getCentroid(), bounds = feature.geometry
+				.getBounds(), radius = Math
+				.abs((bounds.right - bounds.left) / 2), count = 0, grow = 'up';
+
+		var resize = function() {
+			if (count > 16) {
+				clearInterval(window.resizeInterval);
+			}
+			var interval = radius * 0.03;
+			var ratio = interval / radius;
+			switch (count) {
+			case 4:
+			case 12:
+				grow = 'down';
+				break;
+			case 8:
+				grow = 'up';
+				break;
+			}
+			if (grow !== 'up') {
+				ratio = -Math.abs(ratio);
+			}
+			feature.geometry.resize(1 + ratio, point);
+			vector.drawFeature(feature);
+			count++;
+		};
+		window.resizeInterval = window.setInterval(resize, 50, point, radius);
+	};
+
+	locate = function() {
+		geolocate.deactivate();
+		geolocate.activate();
+	};
+
+	removeFeatures = function() {
+		vlayer.removeAllFeatures();
+	};
+
+	removeLocate = function() {
+		vector.removeAllFeatures();
 	};
 </script>
 <style>
@@ -380,14 +489,9 @@
 	</div>
 	<div style="float: left; width: 630px; height: 800px;">
 		<div id="panel" class="smallmap">
-			<input type="radio" name="draw" value="point" id="A01"
-				onclick="toggleControl(this)"><label for="A01">画点</label> <input
-				type="radio" name="draw" value="line" id="A02"
-				onclick="toggleControl(this)"><label for="A02">画线</label> <input
-				type="radio" name="draw" value="polygon" id="A03"
-				onclick="toggleControl(this)"><label for="A03">画面</label> <input
-				type="radio" name="draw" value="cancel" id="A04"
-				onclick="toggleControl(this)"><label for="A04">无</label>
+			<button onclick="removeFeatures()">清除点线面</button>
+			<button onclick="removeLocate()">清除定位标记</button>
+			<button onclick="locate()">定位</button>
 		</div>
 	</div>
 
