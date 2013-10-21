@@ -286,3 +286,96 @@ OpenLayers.Layer.SosoSate = OpenLayers
 					wrapDateLine : true,
 					CLASS_NAME : "OpenLayers.Layer.SosoSate"
 				});
+
+OpenLayers.Layer.Tianditu = OpenLayers
+		.Class(
+				OpenLayers.Layer.XYZ,
+				{
+					name : "街道图",
+					attribution : "Data CC-By-SA by <a href='http://www.hollycrm.com/'>合力亿捷科技</a>",
+					sphericalMercator : true,
+					clone : function(obj) {
+						if (obj == null) {
+							obj = new OpenLayers.Layer.MAPABC(this.name,
+									this.url, this.getOptions());
+						}
+						obj = OpenLayers.Layer.XYZ.prototype.clone.apply(this,
+								[ obj ]);
+						return obj;
+					},
+					getURL : function(bounds) {
+						var xyz = this.getXYZ(bounds);
+						var _subDomains = new Array("t0", "t1", "t2", "t3",
+								"t4", "t5");
+						var subdomain = _subDomains[((xyz.x + xyz.y) % 4)];
+						this.url = "http://" + subdomain
+								+ ".tianditu.com/DataServer?T=vec_w&x=" + xyz.x
+								+ "&y=" + xyz.y + "&l=" + xyz.z;
+						return this.url;
+					},
+					wrapDateLine : true,
+					CLASS_NAME : "OpenLayers.Layer.Tianditu"
+				});
+
+OpenLayers.Layer.TiandituMark = OpenLayers
+		.Class(
+				OpenLayers.Layer.XYZ,
+				{
+					name : "中文标记",
+					attribution : "Data CC-By-SA by <a href='http://www.hollycrm.com/'>合力亿捷科技</a>",
+					sphericalMercator : true,
+					clone : function(obj) {
+						if (obj == null) {
+							obj = new OpenLayers.Layer.MAPABC(this.name,
+									this.url, this.getOptions());
+						}
+						obj = OpenLayers.Layer.XYZ.prototype.clone.apply(this,
+								[ obj ]);
+						return obj;
+					},
+					getURL : function(bounds) {
+						var xyz = this.getXYZ(bounds);
+						var _subDomains = new Array("t0", "t1", "t2", "t3",
+								"t3", "t4");
+						var subdomain = _subDomains[((xyz.x + xyz.y) % 4)];
+						this.url = "http://" + subdomain
+								+ ".tianditu.com/DataServer?T=cva_w&x=" + xyz.x
+								+ "&y=" + xyz.y + "&l=" + xyz.z;
+						return this.url;
+					},
+					wrapDateLine : true,
+					isBaseLayer : false,
+					visibility : true,
+					CLASS_NAME : "OpenLayers.Layer.TiandituMark"
+				});
+
+OpenLayers.Layer.TiandituSatellite = OpenLayers
+		.Class(
+				OpenLayers.Layer.XYZ,
+				{
+					name : "卫星图",
+					attribution : "Data CC-By-SA by <a href='http://www.hollycrm.com/'>合力亿捷科技</a>",
+					sphericalMercator : true,
+					clone : function(obj) {
+						if (obj == null) {
+							obj = new OpenLayers.Layer.MAPABC(this.name,
+									this.url, this.getOptions());
+						}
+						obj = OpenLayers.Layer.XYZ.prototype.clone.apply(this,
+								[ obj ]);
+						return obj;
+					},
+					getURL : function(bounds) {
+						var xyz = this.getXYZ(bounds);
+						var _subDomains = new Array("t0", "t1", "t2", "t3",
+								"t3", "t4");
+						var subdomain = _subDomains[((xyz.x + xyz.y) % 4)];
+						this.url = "http://" + subdomain
+								+ ".tianditu.com/DataServer?T=cia_w&x=" + xyz.x
+								+ "&y=" + xyz.y + "&l=" + xyz.z;
+						return this.url;
+					},
+					wrapDateLine : true,
+					isBaseLayer : false,
+					CLASS_NAME : "OpenLayers.Layer.TiandituSatellite"
+				});
