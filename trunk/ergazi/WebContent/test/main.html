@@ -274,6 +274,74 @@
 					}
 				});
 
+		var wuxi_hotel = new OpenLayers.Layer.WMS("北京饭店",
+				"http://59.108.107.51:8910/geoserver/huabo/wms", {
+					LAYERS : 'huabo:beijing_restaurant',
+					STYLES : '',
+					format : "image/jpeg",
+					tiled : true,
+					transparent : true
+				}, {
+					buffer : 0,
+					displayOutsideMaxExtent : true,
+					isBaseLayer : false,
+					visibility : false,
+					yx : {
+						'EPSG:4326' : true
+					}
+				});
+
+		var wuxi_zoning = new OpenLayers.Layer.WMS("全国各地",
+				"http://59.108.107.51:8910/geoserver/huabo/wms", {
+					LAYERS : 'huabo:prc_popplaces',
+					STYLES : '',
+					format : "image/jpeg",
+					tiled : true,
+					transparent : true
+				}, {
+					buffer : 0,
+					displayOutsideMaxExtent : true,
+					isBaseLayer : false,
+					visibility : false,
+					yx : {
+						'EPSG:4326' : true
+					}
+				});
+
+		var beijing_universities = new OpenLayers.Layer.WMS("北京大学",
+				"http://59.108.107.51:8910/geoserver/huabo/wms", {
+					LAYERS : 'huabo:universities_in_beijing',
+					STYLES : '',
+					format : "image/jpeg",
+					tiled : true,
+					transparent : true
+				}, {
+					buffer : 0,
+					displayOutsideMaxExtent : true,
+					isBaseLayer : false,
+					visibility : false,
+					yx : {
+						'EPSG:4326' : true
+					}
+				});
+
+		var beijing_province_2006 = new OpenLayers.Layer.WMS("北京区划",
+				"http://59.108.107.51:8910/geoserver/huabo/wms", {
+					LAYERS : 'huabo:beijing_province_2006',
+					STYLES : '',
+					format : "image/jpeg",
+					tiled : true,
+					transparent : true
+				}, {
+					buffer : 0,
+					displayOutsideMaxExtent : true,
+					isBaseLayer : false,
+					visibility : false,
+					yx : {
+						'EPSG:4326' : true
+					}
+				});
+
 		var drawControls = {
 			point : new OpenLayers.Control.DrawFeature(wfs,
 					OpenLayers.Handler.Point),
@@ -328,14 +396,14 @@
 			return marker;
 		};
 
-		map.addLayers([ lmap, tdt, gmap, mmap, china_popplaces, gml, beijing, bj,
-				wfs, somap, vector, vlayer ]);
+		map.addLayers([ lmap, tdt, gmap, mmap, vector, vlayer, wuxi_hotel,
+				wuxi_zoning, beijing_universities, beijing_province_2006 ]);
 		map.setCenter(new OpenLayers.LonLat(116.31444444444445,
 				39.96055555555556).transform(new OpenLayers.Projection(
 				"EPSG:4326"), map.getProjectionObject()), 10);
 		map.addControl(new OpenLayers.Control.LayerSwitcher());
 
-		var markers = new OpenLayers.Layer.Markers("我的自定义点");
+		var markers = new OpenLayers.Layer.Markers("自定义点");
 		markers.addMarker(getMarker(120.142, 30.1714, "曹志富", false));
 		markers.addMarker(getMarker(111.6626, 40.8172, "冯晓婷", false));
 		markers.addMarker(getMarker(116.3144, 39.9605, "胡文华", false));
