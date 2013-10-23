@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>城市查询</title>
+<link rel="stylesheet" type="text/css"
+	href="http://api.amap.com/Public/css/demo.Default.css" />
+<script language="javascript"
+	src="http://api.amap.com/webapi/init?v=1.1&key=ed9da147078b03e4629a4685cae66559"></script>
+<script language="javascript">
+	var mapObj, toolbar, overview, scale;
+	var date, startTime;
+	function showTime() {
+		var date = new Date();
+		document.getElementById("textSearchTime").value = date.getTime()
+				- startTime + "毫秒";
+	}
+
+	function initTimer() {
+		date = new Date();
+		startTime = date.getTime();
+	}
+
+	function mapInit() {
+		var opt = {
+			level : 13,//设置地图缩放级别  
+			center : new AMap.LngLat(116.397428, 39.90923),//设置地图中心点   
+			doubleClickZoom : true,//双击放大地图  
+			scrollWheel : true
+		//鼠标滚轮缩放地图  
+		}
+		mapObj = new AMap.Map("iCenter", opt);
+		AMap.Conf.network = 1;
+		mapObj.plugin([ "AMap.ToolBar", "AMap.OverView", "AMap.Scale" ],
+				function() {
+					toolbar = new AMap.ToolBar();
+					toolbar.autoPosition = false; //加载工具条   
+					mapObj.addControl(toolbar);
+					overview = new AMap.OverView(); //加载鹰眼  
+					mapObj.addControl(overview);
+					scale = new AMap.Scale(); //加载比例尺  
+					mapObj.addControl(scale);
+				});
+	}
+	function byCity() {
+		var city = document.getElementById("city").value;
+		var partition = new AMap.Partition();
+		partition.byCity(city, byCity_CallBack);
+		initTimer();
+	}
+	function byCity_CallBack(data) {
+		showTime();
+		document.getElementById("textUniqId").value = data.uniqid;
+		var resultStr = "";
+		if (data.status == "E0") {
+			var lineNum = data.length;//返回总数.  
+			resultCount = lineNum;
+			var content = "";
+			content += "<div style=\"cursor:pointer;\" onmouseover=openMarkerTipById1(this) onmouseout=clearbackground(this) onclick=\"addMarker('"
+					+ data.city.x
+					+ "','"
+					+ data.city.y
+					+ "','"
+					+ data.city.name + "')\"><dl>";
+			content += "<dt>" + "城市名称：" + data.city.name + "</dt>";
+			content += "</dl></div>";
+			resultStr += content;
+			alert("未查找到相应的城市!<br />建议：<br />1.请手动移动地图到您想要的地区。<br />2.尝试其他城市。<br />3.点击确定后进行重试。");
+		} else if (data.status == "E1") {
+			resultStr = "未查找到任何结果!<br />建议：<br />1.请确保所有字词拼写正确。<br />2.尝试不同的关键字。<br />3.尝试更宽泛的关键字。";
+		} else {
+			resultStr = "错误信息：" + data.state
+					+ "请对照API Server v2.0.0 简明提示码对照表查找错误类型";
+		}
+		document.getElementById("result").innerHTML = resultStr;
+	}
+	function addMarker(x, y, name) {
+		marker = new AMap.Marker({
+			map : mapObj,
+			position : new AMap.LngLat(x, y), //位置   
+			icon : "http://webapi.amap.com/images/0.png",//复杂图标  
+			draggable : true, //可拖动   
+			visible : true
+		//可见  
+		});
+
+		mapObj.setFitView();
+		var inforWindow = new AMap.InfoWindow({
+			content : name,
+			size : new AMap.Size(100, 0),
+			offset : {
+				x : 0,
+				y : -30
+			},
+			autoMove : true
+		});
+		AMap.event.addListener(marker, "click", function(e) {
+			inforWindow.open(mapObj, marker.getPosition());
+		});
+	}
+	function openMarkerTipById1(thiss) {
+		thiss.style.background = '#CAE1FF';
+	}
+	function clearbackground(thiss) {
+		thiss.style.background = '';
+	}
+</script>
+</head>
+<body onload="mapInit();">
+	<div id="iCenter"></div>
+	<div class="demo_box">
+		<p>
+			查询城市信息 : 输入城市信息 <input type="text" id="city" name="city" value="010" />
+			<a href="javascript:byCity();">查询</a><br> <b>端到端往返延迟（round-trip
+				delay）：</b> <input type="text" id="textSearchTime" readonly="yes"
+				style="border: 0px; width: 60%" /><br> <b>本次请求 ID：</b> <input
+				type="text" id="textUniqId" readonly="yes"
+				style="border: 0px; width: 60%" />
+		</p>
+		<div id="r_title">
+			<b>搜索结果:</b>
+		</div>
+		<div id="result"></div>
+	</div>
+</body>
+</html>
